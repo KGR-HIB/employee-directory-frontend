@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { LoginComponent } from './containers/login/login.component';
 
@@ -10,7 +11,8 @@ import { LoginComponent } from './containers/login/login.component';
   ],
   imports: [
     CommonModule,
-    AuthenticationRoutingModule
+    AuthenticationRoutingModule,
+    MatProgressBarModule,
   ]
 })
 export class AuthenticationModule { }
