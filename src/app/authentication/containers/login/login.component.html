@@ -16,21 +16,38 @@
               <p class="text-muted mb-4">
                 Ingresa correo y contraseña para continuar
               </p>
-              <form>
+              <form [formGroup]="formGroup">
                 <div class="form-group mb-3">
-                  <input id="inputEmail" type="email" placeholder="Correo electrónico" required="" autofocus=""
-                    class="form-control border-0 shadow-sm px-4">
+                  <mat-form-field appearance="outline" class="kt-custom-mat-input">
+                    <mat-label>Correo</mat-label>
+                    <input matInput formControlName="mail" placeholder="Ingrese el Correo">
+                    <mat-icon matSuffix>mail</mat-icon>
+                    <mat-error *ngIf="isControlHasError('mail','required')">
+                      <strong>Campo requerido</strong>
+                    </mat-error>
+                    <mat-error *ngIf="isControlHasError('mail','pattern')">
+                      <strong>Correo inválido</strong>
+                    </mat-error>
+                  </mat-form-field>
                 </div>
                 <div class="form-group mb-3">
-                  <input id="inputPassword" type="password" placeholder="Contraseña" required=""
-                    class="form-control border-0 shadow-sm px-4 text-primary">
+                  <mat-form-field appearance="outline" class="kt-custom-mat-input">
+                    <mat-label>Contraseña</mat-label>
+                    <input [type]="isHiddenPassword ? 'password' : 'text'" autocomplete="off" formControlName="password"
+                      matInput placeholder="Ingrese la Contraseña" />
+                    <mat-icon (click)="isHiddenPassword = !isHiddenPassword" class="kt-selection-cursor" matSuffix>
+                      {{ isHiddenPassword ? 'visibility' : 'visibility_off' }}
+                    </mat-icon>
+                    <mat-error *ngIf="isControlHasError('password','required')">
+                      <strong>Campo requerido</strong>
+                    </mat-error>
+                  </mat-form-field>
                 </div>
-                <div class="custom-control custom-checkbox mb-3">
-                  <input id="customCheck1" type="checkbox" checked class="custom-control-input">
-                  <label for="customCheck1" class="custom-control-label">Recordar contraseña</label>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 shadow-sm">
-                  Sign in
+
+                <mat-progress-bar [style.visibility]="loading ? 'visible' : 'hidden'" mode="query"></mat-progress-bar>
+
+                <button mat-flat-button color="primary" class="kt-custom-mat-input" (click)="submit()">
+                  Ingresar
                 </button>
               </form>
             </div>

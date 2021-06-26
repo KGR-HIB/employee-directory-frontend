@@ -1,15 +1,17 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EmployeesComponent } from './conatiners/employees/employees.component';
-import { EmployeeComponent } from './conatiners/employee/employee.component';
-import { CreateEmployeeComponent } from './conatiners/create-employee/create-employee.component';
-import { EmployeeListComponent } from './components/employee-list/employee-list.component';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularMaterialModule } from '../share/angular-material.module';
 import { EmployeeAdvanceFiltersComponent } from './components/employee-advance-filters/employee-advance-filters.component';
-import { EmployeeGenericFilterComponent } from './components/employee-generic-filter/employee-generic-filter.component';
-import { EmployeePersonalInfoComponent } from './components/employee-personal-info/employee-personal-info.component';
 import { EmployeeCategoryComponent } from './components/employee-category/employee-category.component';
+import { EmployeeGenericFilterComponent } from './components/employee-generic-filter/employee-generic-filter.component';
+import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 import { EmployeePersonalFormComponent } from './components/employee-personal-form/employee-personal-form.component';
-
+import { EmployeePersonalInfoComponent } from './components/employee-personal-info/employee-personal-info.component';
+import { CreateEmployeeComponent } from './conatiners/create-employee/create-employee.component';
+import { EmployeeComponent } from './conatiners/employee/employee.component';
+import { EmployeesComponent } from './conatiners/employees/employees.component';
+import { DirectoryRoutingModule } from './directory-routing.module';
 
 
 @NgModule({
@@ -25,7 +27,11 @@ import { EmployeePersonalFormComponent } from './components/employee-personal-fo
     EmployeePersonalFormComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    DirectoryRoutingModule,
+    AngularMaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class DirectoryModule { }

@@ -1,1 +1,188 @@
-<p>employee-personal-form works!</p>
+<div class="container mt-3">
+
+  <form [formGroup]="formGroup">
+
+    <div class="row">
+      <div class="col-lg-3 col-sm-12">
+        <img src="../../../../assets/media/user/user.png"
+          style="width: 100%; border-radius: 20px; border: 1px solid #8b8888cc;" alt="Profile image">
+      </div>
+      <div class="col-lg-9 col-sm-12">
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <h2 class="kt-title-color">Información Personal</h2>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <mat-form-field appearance="outline" class="kt-custom-mat-input">
+              <mat-label>Nombres</mat-label>
+              <input matInput formControlName="name" placeholder="Ingrese los Nombres">
+              <mat-error *ngIf="isControlHasError('name','required')">
+                <strong>Campo requerido</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <mat-form-field appearance="outline" class="kt-custom-mat-input">
+              <mat-label>Apellidos</mat-label>
+              <input matInput formControlName="lastName" placeholder="Ingrese los Apellidos">
+              <mat-error *ngIf="isControlHasError('lastName','required')">
+                <strong>Campo requerido</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <mat-form-field appearance="outline" class="kt-custom-mat-input">
+              <mat-label>Correo</mat-label>
+              <input matInput formControlName="mail" placeholder="Ingrese el Correo">
+              <mat-icon matSuffix>mail</mat-icon>
+              <mat-error *ngIf="isControlHasError('mail','required')">
+                <strong>Campo requerido</strong>
+              </mat-error>
+              <mat-error *ngIf="isControlHasError('mail','pattern')">
+                <strong>Correo inválido</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <mat-form-field appearance="outline" class="kt-custom-mat-input">
+              <mat-label>Teléfono</mat-label>
+              <input matInput formControlName="phone" placeholder="Ingrese el Teléfono">
+              <mat-error *ngIf="isControlHasError('phone','required')">
+                <strong>Campo requerido</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <mat-form-field appearance="outline" class="kt-custom-mat-input">
+              <mat-label>Ciudad</mat-label>
+              <input type="text" placeholder="Ingrese la Ciudad" aria-label="City" matInput formControlName="city"
+                [matAutocomplete]="autoCity">
+              <mat-autocomplete #autoCity="matAutocomplete">
+                <mat-option *ngFor="let option of filteredCities | async" [value]="option.name">
+                  {{ option.name }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="isControlHasError('city','required')">
+                <strong>Campo requerido</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 col-sm-12">
+
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <h2 class="kt-title-color">Información Laboral</h2>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <mat-form-field appearance="outline" class="kt-custom-mat-input">
+              <mat-label>Cargo</mat-label>
+              <input type="text" placeholder="Ingrese el Cargo" aria-label="Position" matInput
+                formControlName="position" [matAutocomplete]="autoPosition">
+              <mat-autocomplete #autoPosition="matAutocomplete">
+                <mat-option *ngFor="let option of filteredPositions | async" [value]="option.name">
+                  {{ option.name }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="isControlHasError('position','required')">
+                <strong>Campo requerido</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <mat-form-field appearance="outline" class="kt-custom-mat-input">
+              <mat-label>Área</mat-label>
+              <input type="text" placeholder="Ingrese el Área" aria-label="Department" matInput
+                formControlName="department" [matAutocomplete]="autoDepts">
+              <mat-autocomplete #autoDepts="matAutocomplete">
+                <mat-option *ngFor="let option of filteredDepartments | async" [value]="option.name">
+                  {{ option.name }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="isControlHasError('department','required')">
+                <strong>Campo requerido</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <mat-form-field appearance="outline" class="kt-custom-mat-input">
+              <mat-label>Responsable</mat-label>
+              <mat-select formControlName="chief">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let item of chiefs" [value]="item">
+                  {{ item.name }} {{ item.lastName }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="isControlHasError('chief','required')">
+                <strong>Campo requerido</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 col-sm-12">
+
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <h2 class="kt-title-color">Contraseña</h2>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <mat-form-field appearance="outline" class="kt-custom-mat-input">
+              <mat-label>Contraseña</mat-label>
+              <input [type]="isHiddenPassword ? 'password' : 'text'" autocomplete="off" formControlName="password"
+                matInput placeholder="Ingrese la Contraseña" />
+              <mat-icon (click)="isHiddenPassword = !isHiddenPassword" class="kt-selection-cursor" matSuffix>
+                {{ isHiddenPassword ? 'visibility' : 'visibility_off' }}
+              </mat-icon>
+              <mat-error *ngIf="isControlHasError('password','required')">
+                <strong>Campo requerido</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 col-sm-12">
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-right">
+            <mat-progress-bar [style.visibility]="loading ? 'visible' : 'hidden'" mode="query"></mat-progress-bar>
+
+            <button mat-stroked-button class="mr-2" routerLink="/{{APP_ROUTES.EMPLOYEES}}">
+              Cancelar
+            </button>
+
+            <button mat-flat-button color="primary" (click)="save()">
+              Ingresar
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </form>
+
+</div>

@@ -2,17 +2,17 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { APP_ROUTES } from '../core/constants/app-routes.constant';
-import { LoginComponent } from './containers/login/login.component';
+import { CreateEmployeeComponent } from './conatiners/create-employee/create-employee.component';
+import { EmployeesComponent } from './conatiners/employees/employees.component';
 
 const ROUTES: Routes = [
-  { 
-    path: '',   
-    redirectTo: `/${APP_ROUTES.LOGIN}`, 
-    pathMatch: 'full' 
+  {
+    path: APP_ROUTES.EMPLOYEES,
+    component: EmployeesComponent,
   },
   {
-    path: APP_ROUTES.LOGIN,
-    component: LoginComponent,
+    path: APP_ROUTES.EMPLOYEE_CREATION,
+    component: CreateEmployeeComponent,
   },
 ];
 
@@ -24,4 +24,4 @@ const ROUTES: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AuthenticationRoutingModule { }
+export class DirectoryRoutingModule { }
