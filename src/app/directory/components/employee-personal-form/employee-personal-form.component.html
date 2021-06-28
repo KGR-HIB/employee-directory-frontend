@@ -4,8 +4,12 @@
 
     <div class="row">
       <div class="col-lg-3 col-sm-12">
-        <img src="../../../../assets/media/user/user.png"
-          style="width: 100%; border-radius: 20px; border: 1px solid #8b8888cc;" alt="Profile image">
+        <!-- <img src="error_image" appDefImg
+          style="width: 100%; border-radius: 20px; border: 1px solid #8b8888cc;" alt="Profile image"> -->
+
+          <app-load-image></app-load-image>
+
+
       </div>
       <div class="col-lg-9 col-sm-12">
 
@@ -167,10 +171,10 @@
         </div>
 
         <div class="row">
-          <div class="col-12 text-right">
+          <div class="col-12 text-end">
             <mat-progress-bar [style.visibility]="loading ? 'visible' : 'hidden'" mode="query"></mat-progress-bar>
 
-            <button mat-stroked-button class="mr-2" routerLink="/{{APP_ROUTES.EMPLOYEES}}">
+            <button mat-stroked-button class="me-2" routerLink="/{{APP_ROUTES.EMPLOYEES}}">
               Cancelar
             </button>
 

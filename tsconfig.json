@@ -3,7 +3,16 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
+    "paths": {
+      "@services": ["src/app/core/services/index.ts"],
+      "@models": ["src/app/core/models/index.ts"],
+      "@actions": ["src/app/store/actions/index.ts"],
+      "@effects": ["src/app/store/effects/index.ts"],
+      "@store": ["src/app/store/app.states.ts"],
+      "@interceptors": ["src/app/core/interceptors/index.ts"],
+      "@constants": ["src/app/core/constants/index.ts"]
+    },
+    "outDir": "./dist",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitReturns": true,

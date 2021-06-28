@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { VALIDATIONS } from '@constants';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { CONSTANTS } from 'src/app/core/constants/common.constant';
 import { City } from 'src/app/core/models/city.model';
 import { Department } from 'src/app/core/models/department.model';
 import { Position } from 'src/app/core/models/position.model';
@@ -17,16 +17,16 @@ import { ValidationUtils } from '../../../share/validation.util';
 })
 export class EmployeePersonalFormComponent implements OnInit {
 
-  formGroup: FormGroup;
+  formGroup!: FormGroup;
   isHiddenPassword = true;
-  loading: boolean;
-  filteredCities: Observable<City[]>;
-  cities: City[];
-  filteredPositions: Observable<Position[]>;
-  positions: Position[];
-  filteredDepartments: Observable<Department[]>;
-  departments: Department[];
-  chiefs: SimpleEmployee[];
+  loading!: boolean;
+  filteredCities!: Observable<City[]>;
+  cities!: City[];
+  filteredPositions!: Observable<Position[]>;
+  positions!: Position[];
+  filteredDepartments!: Observable<Department[]>;
+  departments!: Department[];
+  chiefs!: SimpleEmployee[];
 
   readonly APP_ROUTES = APP_ROUTES;
 
@@ -46,7 +46,7 @@ export class EmployeePersonalFormComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       mail: [null, Validators.compose([
         Validators.required,
-        Validators.pattern(CONSTANTS.EMAIL_REGEX),
+        Validators.pattern(VALIDATIONS.EMAIL_REGEX),
       ])],
       password: [null, Validators.compose([
         Validators.required

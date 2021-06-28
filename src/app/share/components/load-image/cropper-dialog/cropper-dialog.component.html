@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Recortar imagen</h2>
+
+<mat-dialog-content>
+
+  <image-cropper [imageChangedEvent]="imageChangedEvent" format="png" alignImage="center" [transform]="transform"
+    [maintainAspectRatio]="true" [aspectRatio]="1 / 1" [resizeToWidth]="600" (imageCropped)="imageCropped($event)">
+  </image-cropper>
+  <div class="modal-centered">
+    <button (click)="zoomIn()" aria-label="Zoom In">
+      <mat-icon>zoom_in</mat-icon>
+    </button>
+    <button (click)="zoomOut()" aria-label="Zoom Out">
+      <mat-icon>zoom_out</mat-icon>
+    </button>
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button (click)="close()" class="custom-button-right-margin" mat-raised-button>Cancel</button>
+  <button (click)="save()" color="primary" mat-raised-button>Save</button>
+</mat-dialog-actions>

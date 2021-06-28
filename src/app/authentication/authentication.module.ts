@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../share/angular-material.module';
 import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { LoginComponent } from './containers/login/login.component';
+import {BrowserModule} from "@angular/platform-browser";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -12,10 +14,12 @@ import { LoginComponent } from './containers/login/login.component';
   ],
   imports: [
     CommonModule,
-    AngularMaterialModule,
-    AuthenticationRoutingModule,
+    BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    AngularMaterialModule,
+    AuthenticationRoutingModule
   ]
 })
 export class AuthenticationModule { }

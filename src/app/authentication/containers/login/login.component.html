@@ -17,7 +17,7 @@
                 Ingresa correo y contraseña para continuar
               </p>
               <form [formGroup]="formGroup">
-                <div class="form-group mb-3">
+                <div class="form-group">
                   <mat-form-field appearance="outline" class="kt-custom-mat-input">
                     <mat-label>Correo</mat-label>
                     <input matInput formControlName="mail" placeholder="Ingrese el Correo">
@@ -30,7 +30,7 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
-                <div class="form-group mb-3">
+                <div class="form-group">
                   <mat-form-field appearance="outline" class="kt-custom-mat-input">
                     <mat-label>Contraseña</mat-label>
                     <input [type]="isHiddenPassword ? 'password' : 'text'" autocomplete="off" formControlName="password"

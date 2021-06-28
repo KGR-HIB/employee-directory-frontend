@@ -1,8 +1,11 @@
+import { AuthAction } from "@actions";
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { APP_ROUTES } from '../../../core/constants/app-routes.constant';
-import { CONSTANTS } from '../../../core/constants/common.constant';
+import { VALIDATIONS } from '@constants';
+import { Authentication } from "@models";
+import { Store } from "@ngrx/store";
+import { GlobalState } from "@store";
+import { Observable } from "rxjs";
 import { ValidationUtils } from '../../../share/validation.util';
 
 @Component({
@@ -12,24 +15,27 @@ import { ValidationUtils } from '../../../share/validation.util';
 })
 export class LoginComponent implements OnInit {
 
-  formGroup: FormGroup;
+  formGroup!: FormGroup;
+  loading$: Observable<boolean>;
+  loading!: boolean;
   isHiddenPassword = true;
-  loading: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
-  ) { }
-
-  ngOnInit(): void {
+    private store: Store<GlobalState>,
+  ) {
     this.createFormFields();
+    this.loading$ = this.store.select((store) => store.authentication.isLoading);
+    this.loading$.subscribe(load => this.loading = load);
   }
+
+  ngOnInit(): void {}
 
   private createFormFields() {
     this.formGroup = this.formBuilder.group({
       mail: [null, Validators.compose([
         Validators.required,
-        Validators.pattern(CONSTANTS.EMAIL_REGEX),
+        Validators.pattern(VALIDATIONS.EMAIL_REGEX),
       ])],
       password: [null, Validators.compose([
         Validators.required
@@ -46,16 +52,13 @@ export class LoginComponent implements OnInit {
       );
       return;
     }
-    this.loading = true;
-    // Get form data
-    const authData = {
-      mail: controls.mail.value,
+
+    const payload: Authentication = {
+      email: controls.mail.value,
       password: controls.password.value
     };
-    console.log(authData);
-    // TODO: call login service
-    // TODO: manage 401 message
-    this.router.navigateByUrl(APP_ROUTES.EMPLOYEES).then();
+
+    this.store.dispatch(AuthAction.LoginBegin({payload}));
   }
 
   isControlHasError(controlName: string, validationType: string): boolean {

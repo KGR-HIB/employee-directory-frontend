@@ -1,0 +1,12 @@
+<!-- Loaded image -->
+<div class="edh-avatar edh-avatar--outline">
+
+  <div class="edh-avatar__holder avatar-size" [ngStyle]="{'background-image': getImagePrev()}">
+  </div>
+
+  <label class="edh-avatar__upload">
+    <i class="fa fa-pen" aria-hidden="true"></i>
+    <input #imageUploader hidden type="file" id="fileupload" (change)="fileProgress($event)"
+      accept="image/*" style="width: 0.1px;" />
+  </label>
+</div>
