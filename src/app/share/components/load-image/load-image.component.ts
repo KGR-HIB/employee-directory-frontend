@@ -87,7 +87,7 @@ export class LoadImageComponent implements OnInit, OnChanges {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.maxWidth = '90%'
+    dialogConfig.maxWidth = '600px'
     dialogConfig.data = {
       image: this.imageChangedEvent
     };

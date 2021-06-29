@@ -1,19 +1,71 @@
-
 // Import styles
-@import "~bootstrap/scss/bootstrap";
-@import "style-general.scss";
+@import '~bootstrap/scss/bootstrap';
+@import 'style-general.scss';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+$btn-detail-text-color: #595d6e;
+$btn-accent-text-color: #153963;
+$btn-dark-text-color: #48465b;
 
-.kt-custom-mat-input {
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.edh-custom-mat-input {
   width: 100% !important;
 }
 
-.kt-selection-cursor {
+.edh-selection-cursor {
   cursor: pointer;
 }
 
-.kt-title-color {
-  color: #153963;
+.edh-title-color {
+  color: $btn-accent-text-color;
+}
+
+// Show non editable info
+
+.edh-icon-label {
+  display: flex;
+  align-items: center;
+  padding-bottom: 0.2em;
+}
+
+.edh-normal-label {
+  color: $btn-detail-text-color;
+  font-weight: 400;
+}
+
+.edh-title-label {
+  color: $btn-dark-text-color;
+  font-weight: 600;
+}
+
+.edh-title-desc {
+  display: flex;
+  flex-direction: column;
+}
+
+.edh-card-actions {
+  text-align: right;
+  width: 100%;
+}
+
+.edh-profile-img {
+  display: flex;
+  justify-content: center;
+  
+  img {
+    width: 16em !important;
+    height: 16em !important;
+  }
+
+  .edh-profile-img-border {
+    border: 3px solid #ffffff;
+    box-shadow: 0px 0px 13px 0px rgba(#000000, 0.1);
+  }
 }

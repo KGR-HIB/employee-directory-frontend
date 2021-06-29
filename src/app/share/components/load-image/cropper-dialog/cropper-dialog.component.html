@@ -2,21 +2,26 @@
 
 <mat-dialog-content>
 
+  <div class="text-center m-2">
+
+    <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle value="Zoom In" (click)="zoomIn()" aria-label="Zoom In">
+        <mat-icon>zoom_in</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="Zoom Out" (click)="zoomOut()" aria-label="Zoom Out">
+        <mat-icon>zoom_out</mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+
+  </div>
   <image-cropper [imageChangedEvent]="imageChangedEvent" format="png" alignImage="center" [transform]="transform"
     [maintainAspectRatio]="true" [aspectRatio]="1 / 1" [resizeToWidth]="600" (imageCropped)="imageCropped($event)">
   </image-cropper>
-  <div class="modal-centered">
-    <button (click)="zoomIn()" aria-label="Zoom In">
-      <mat-icon>zoom_in</mat-icon>
-    </button>
-    <button (click)="zoomOut()" aria-label="Zoom Out">
-      <mat-icon>zoom_out</mat-icon>
-    </button>
-  </div>
 
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button (click)="close()" class="custom-button-right-margin" mat-raised-button>Cancel</button>
-  <button (click)="save()" color="primary" mat-raised-button>Save</button>
+  <div class="edh-card-actions">
+    <button (click)="save()" color="primary" mat-raised-button>Recortar</button>
+  </div>
 </mat-dialog-actions>

@@ -3,21 +3,6 @@
   height: 16em !important;
 }
 
-.image-hover-zoomin div {
-  background: #02399d;
-}
-
-.image-hover-zoomin:img {
-  opacity: 1;
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
-}
-
-.image-hover-zoomin:hover img {
-  opacity: 0.5;
-  cursor: pointer;
-}
-
 .edh-avatar {
 	position: relative;
 	display: inline-block;
@@ -55,7 +40,6 @@
 			color: edh-brand-color();
 			font-size: 0.9rem;
 		}
-
 
 		&:hover{
 			background-color: edh-brand-color();

@@ -1,1 +1,71 @@
-<p>employee-personal-info works!</p>
+<div class="container mt-3">
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div class="edh-card-actions">
+        <button mat-mini-fab color="primary" aria-label="Edit profile" routerLink="/{{APP_ROUTES.EMPLOYEE_CREATION}}">
+          <mat-icon>mode_edit</mat-icon>
+        </button>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row pb-3">
+        <div class="col-lg-3 col-sm-12 edh-profile-img">
+
+          <img src="error_image" appDefImg class="edh-profile-img-border" alt="Profile image">
+
+        </div>
+        <div class="col-lg-9 col-sm-12">
+
+          <div class="row mt-3">
+
+            <div class="col-md-6 col-sm-12">
+              <h2 class="edh-title-color">Luis Miguel Rodríguez Paredes</h2>
+            </div>
+
+            <div class="col-md-6 col-sm-12 pb-3">
+              <div class="edh-icon-label">
+                <i aria-hidden="true" class="material-icons-outlined edh-normal-label me-2">mail</i>
+                <span class="edh-normal-label">osmany.castro@kruger.com</span>
+              </div>
+              <div class="edh-icon-label">
+                <i aria-hidden="true" class="material-icons-outlined edh-normal-label me-2">call</i>
+                <span class="edh-normal-label">+593979049928</span>
+              </div>
+              <div class="edh-icon-label">
+                <i aria-hidden="true" class="material-icons-outlined edh-normal-label me-2">location_on</i>
+                <span class="edh-normal-label">Quito</span>
+              </div>
+
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col-md-3 col-sm-12 edh-title-desc pb-3">
+              <span class="edh-title-label">Cargo</span>
+              <span class="edh-normal-label">Service Manager</span>
+            </div>
+
+            <div class="col-md-3 col-sm-12 edh-title-desc pb-3">
+              <span class="edh-title-label">Área</span>
+              <span class="edh-normal-label">Operaciones</span>
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col-md-3 col-sm-12 edh-title-desc pb-3">
+              <span class="edh-title-label">Responsable</span>
+              <span class="edh-normal-label">Armando Cruz</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>

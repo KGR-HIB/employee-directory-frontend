@@ -18,7 +18,7 @@
               </p>
               <form [formGroup]="formGroup">
                 <div class="form-group">
-                  <mat-form-field appearance="outline" class="kt-custom-mat-input">
+                  <mat-form-field appearance="outline" class="edh-custom-mat-input">
                     <mat-label>Correo</mat-label>
                     <input matInput formControlName="mail" placeholder="Ingrese el Correo">
                     <mat-icon matSuffix>mail</mat-icon>
@@ -31,11 +31,11 @@
                   </mat-form-field>
                 </div>
                 <div class="form-group">
-                  <mat-form-field appearance="outline" class="kt-custom-mat-input">
+                  <mat-form-field appearance="outline" class="edh-custom-mat-input">
                     <mat-label>Contraseña</mat-label>
                     <input [type]="isHiddenPassword ? 'password' : 'text'" autocomplete="off" formControlName="password"
                       matInput placeholder="Ingrese la Contraseña" />
-                    <mat-icon (click)="isHiddenPassword = !isHiddenPassword" class="kt-selection-cursor" matSuffix>
+                    <mat-icon (click)="isHiddenPassword = !isHiddenPassword" class="edh-selection-cursor" matSuffix>
                       {{ isHiddenPassword ? 'visibility' : 'visibility_off' }}
                     </mat-icon>
                     <mat-error *ngIf="isControlHasError('password','required')">
@@ -46,7 +46,7 @@
 
                 <mat-progress-bar [style.visibility]="loading ? 'visible' : 'hidden'" mode="query"></mat-progress-bar>
 
-                <button mat-flat-button color="primary" class="kt-custom-mat-input" (click)="submit()">
+                <button mat-flat-button color="primary" class="edh-custom-mat-input" (click)="submit()">
                   Ingresar
                 </button>
               </form>
