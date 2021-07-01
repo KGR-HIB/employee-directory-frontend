@@ -132,22 +132,22 @@ export class EmployeePersonalFormComponent implements OnInit {
 
   private mockCatalogs(): void {
     this.cities = [
-      {cityId: 1, name: 'Quito'},
-      {cityId: 2, name: 'Las Tunas'},
-      {cityId: 3, name: 'Jobabo'},
-      {cityId: 4, name: 'Otabalo'},
+      {id: 1, name: 'Quito'},
+      {id: 2, name: 'Las Tunas'},
+      {id: 3, name: 'Jobabo'},
+      {id: 4, name: 'Otabalo'},
     ];
     this.positions = [
-      {positionId: 1, name: 'Quito'},
-      {positionId: 2, name: 'Las Tunas'},
-      {positionId: 3, name: 'Jobabo'},
-      {positionId: 4, name: 'Otabalo'},
+      {id: 1, name: 'Quito'},
+      {id: 2, name: 'Las Tunas'},
+      {id: 3, name: 'Jobabo'},
+      {id: 4, name: 'Otabalo'},
     ];
     this.departments = [
-      {departmentId: 1, name: 'Quito'},
-      {departmentId: 2, name: 'Las Tunas'},
-      {departmentId: 3, name: 'Jobabo'},
-      {departmentId: 4, name: 'Otabalo'},
+      {id: 1, name: 'Quito'},
+      {id: 2, name: 'Las Tunas'},
+      {id: 3, name: 'Jobabo'},
+      {id: 4, name: 'Otabalo'},
     ];
     this.chiefs = [
       {
