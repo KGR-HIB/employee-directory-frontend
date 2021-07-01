@@ -14,3 +14,4 @@ export * from './simple-employee.model';
 export * from './skill.model';
 export * from './user.model';
 export * from './auth.model';
+export * from './response.model';
