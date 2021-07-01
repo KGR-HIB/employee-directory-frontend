@@ -1,4 +1,4 @@
 export interface Certification {
-  certificationId: number;
+  id: number;
   name: string;
 }

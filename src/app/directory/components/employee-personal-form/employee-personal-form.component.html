@@ -178,7 +178,7 @@
           <div class="col-12 text-end">
             <mat-progress-bar [style.visibility]="loading ? 'visible' : 'hidden'" mode="query"></mat-progress-bar>
 
-            <button mat-stroked-button class="me-2" routerLink="/{{APP_ROUTES.EMPLOYEES}}">
+            <button mat-stroked-button class="me-2" (click)="cancel()">
               Cancelar
             </button>
 

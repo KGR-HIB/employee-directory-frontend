@@ -1,1 +1,28 @@
-<p>employee-list works!</p>
+<div class="container">
+  <div class="edh-list-container">
+    <mat-card class="edh-employee-card m-4" *ngFor="let item of employees">
+      <mat-card-content class="edh-employee-card-content">
+        <img mat-card-image src="error_path" appDefImg alt="Profile image">
+        <div class="m-2">
+          <div>
+            <span class="edh-title-color edh-text-name">{{ item.name }} {{ item.lastName }}</span>
+          </div>
+
+          <div>
+            <span class="edh-normal-label edh-text-job">{{ item.positionName }} - {{ item.departmentName }}</span>
+          </div>
+
+          <div class="edh-icon-label">
+            <i aria-hidden="true" class="material-icons-outlined edh-normal-label edh-text-contact me-2">mail</i>
+            <span class="edh-normal-label edh-text-contact">{{ item.mail }}</span>
+          </div>
+          <div class="edh-icon-label">
+            <i aria-hidden="true" class="material-icons-outlined edh-normal-label edh-text-contact me-2">call</i>
+            <span class="edh-normal-label edh-text-contact">{{ item.phone }}</span>
+          </div>
+
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
