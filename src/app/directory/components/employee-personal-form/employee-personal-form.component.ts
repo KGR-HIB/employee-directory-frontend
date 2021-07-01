@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VALIDATIONS } from '@constants';
@@ -32,6 +33,7 @@ export class EmployeePersonalFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -124,6 +126,10 @@ export class EmployeePersonalFormComponent implements OnInit {
       return;
     }
     this.loading = true;
+  }
+
+  cancel(): void {
+    this.location.back();
   }
 
   isControlHasError(controlName: string, validationType: string): boolean {
