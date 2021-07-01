@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../share/angular-material.module';
+import { CoreModule } from '../core/core.module';
 import { ShareModule } from '../share/share.module';
 import { EmployeeAdvanceFiltersComponent } from './components/employee-advance-filters/employee-advance-filters.component';
 import { EmployeeCategoryComponent } from './components/employee-category/employee-category.component';
@@ -29,6 +30,7 @@ import { DirectoryRoutingModule } from './directory-routing.module';
   ],
   imports: [
     CommonModule,
+    CoreModule,
     ShareModule,
     DirectoryRoutingModule,
     AngularMaterialModule,

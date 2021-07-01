@@ -1,5 +1,4 @@
 // Import styles
-@import '~bootstrap/scss/bootstrap';
 @import 'style-general.scss';
 
 $btn-detail-text-color: #595d6e;
@@ -58,7 +57,7 @@ body {
 .edh-profile-img {
   display: flex;
   justify-content: center;
-  
+
   img {
     width: 16em !important;
     height: 16em !important;
