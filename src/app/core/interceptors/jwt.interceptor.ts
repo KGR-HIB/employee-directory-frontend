@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService) { }
 
   intercept(
     request: HttpRequest<any>,
@@ -31,7 +31,7 @@ export class JwtInterceptor implements HttpInterceptor {
     } else {
       return next.handle(
         request.clone({
-          setHeaders: { ...headers, 'Content-Type': 'application/json' },
+          setHeaders: { ...headers },
         })
       );
     }
