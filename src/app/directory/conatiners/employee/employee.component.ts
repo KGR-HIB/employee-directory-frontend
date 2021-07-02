@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Category, Certification, Employee, Project, Skill } from '@models';
-import { CertificationService, ProjectService, SkillService } from '@services';
+import { ActivatedRoute } from '@angular/router';
+import { Category, Certification, Employee, Project, Skill, Response } from '@models';
+import { CertificationService, ProjectService, SkillService, EmployeeService } from '@services';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -19,10 +20,12 @@ export class EmployeeComponent implements OnInit {
     private skillService: SkillService,
     private projectService: ProjectService,
     private certificationService: CertificationService,
+    private employeeService: EmployeeService,
+    private activeRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    // TODO: call endpoint to get employee
+    this.activeRoute.params.subscribe(params => this.fetchEmployeeSheet(params.id));
     this.getCatalogs();
   }
 
@@ -57,6 +60,13 @@ export class EmployeeComponent implements OnInit {
   updateSkills(skills: Category[]): void {
     // TODO: call service
     console.log(skills);
+  }
+
+  private fetchEmployeeSheet(id: number) {
+    this.employeeService.getEmployeeSheet(id)
+    .subscribe((response: Response<Employee>) => {
+      this.employee = response.data;
+    });
   }
 
 }

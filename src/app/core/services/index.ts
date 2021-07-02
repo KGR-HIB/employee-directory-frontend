@@ -6,4 +6,5 @@ export * from './position.service';
 export * from './project.service';
 export * from './skill.service';
 export * from './user.service';
+export * from './employee.service';
 

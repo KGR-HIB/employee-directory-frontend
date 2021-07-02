@@ -1,13 +1,15 @@
-<app-employee-personal-info [employee]="employee"></app-employee-personal-info>
+<app-layout title="Empleado">
+  <app-employee-personal-info [employee]="employee"></app-employee-personal-info>
 
-<app-employee-category [categoryName]="'Proyectos'" [categoryList]="projects"
-  [savedItems]="employee?.projects" (categoryChanges)="updateProjects($event)">
-</app-employee-category>
+  <app-employee-category [categoryName]="'Proyectos'" [categoryList]="projects"
+    [savedItems]="employee?.projects" (categoryChanges)="updateProjects($event)">
+  </app-employee-category>
 
-<app-employee-category [categoryName]="'Certificaciones'" [categoryList]="certifications"
-  [savedItems]="employee?.certifications" (categoryChanges)="updateCertifications($event)">
-</app-employee-category>
+  <app-employee-category [categoryName]="'Certificaciones'" [categoryList]="certifications"
+    [savedItems]="employee?.certifications" (categoryChanges)="updateCertifications($event)">
+  </app-employee-category>
 
-<app-employee-category [categoryName]="'Tecnologías'" [categoryList]="skills"
-  [savedItems]="employee?.skills" (categoryChanges)="updateSkills($event)">
-</app-employee-category>
+  <app-employee-category [categoryName]="'Tecnologías'" [categoryList]="skills"
+    [savedItems]="employee?.skills" (categoryChanges)="updateSkills($event)">
+  </app-employee-category>
+</app-layout>

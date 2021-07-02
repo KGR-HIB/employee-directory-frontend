@@ -19,5 +19,6 @@ export const REST_CONTROLLER = {
   CERTIFICATION: 'certifications',
   PROJECT: 'projects',
   SKILL: 'skills',
-  POSITION: 'positions'
+  POSITION: 'positions',
+  EMPLOYEE: 'employees'
 };

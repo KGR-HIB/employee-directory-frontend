@@ -7,7 +7,7 @@ import { Skill } from './skill.model';
 import { User } from './user.model';
 
 export interface Employee {
-  employeeId: number;
+  id: number;
   name: string;
   lastName: string;
   phone: string;

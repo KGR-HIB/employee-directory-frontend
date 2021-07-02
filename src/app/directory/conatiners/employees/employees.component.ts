@@ -13,7 +13,7 @@ export class EmployeesComponent implements OnInit {
   constructor(private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
-    this.listEmployees(null);
+    //this.listEmployees(null);
   }
 
   private listEmployees(filter: string | null) {
