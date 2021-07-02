@@ -1,10 +1,11 @@
 import { Role } from './role.model';
 
 export interface User {
-  userId: number;
-  mail: string;
+  id: number;
+  email: string;
   password: string;
-  token: string;
-  hasInitSession: boolean;
-  role?: Role;
+  tokenType: string;
+  accessToken: string;
+  loginFirstTime: boolean;
+  role?: Role; 
 }

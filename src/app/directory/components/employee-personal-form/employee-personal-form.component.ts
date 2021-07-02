@@ -2,7 +2,8 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VALIDATIONS } from '@constants';
-import { Observable } from 'rxjs';
+import { CityService, DepartmentService, PositionService } from '@services';
+import { forkJoin, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { City } from 'src/app/core/models/city.model';
 import { Department } from 'src/app/core/models/department.model';
@@ -32,12 +33,15 @@ export class EmployeePersonalFormComponent implements OnInit {
   readonly APP_ROUTES = APP_ROUTES;
 
   constructor(
+    private cityService: CityService,
+    private positionService: PositionService,
+    private departmentService: DepartmentService,
     private formBuilder: FormBuilder,
     private location: Location
   ) { }
 
   ngOnInit(): void {
-    this.mockCatalogs();
+    this.getCatalogs();
     this.createFormFields();
     this.autocCityListener();
     this.autocDepartmentListener();
@@ -136,47 +140,23 @@ export class EmployeePersonalFormComponent implements OnInit {
     return ValidationUtils.isControlHasError(this.formGroup, controlName, validationType);
   }
 
-  private mockCatalogs(): void {
-    this.cities = [
-      {id: 1, name: 'Quito'},
-      {id: 2, name: 'Las Tunas'},
-      {id: 3, name: 'Jobabo'},
-      {id: 4, name: 'Otabalo'},
-    ];
-    this.positions = [
-      {id: 1, name: 'Quito'},
-      {id: 2, name: 'Las Tunas'},
-      {id: 3, name: 'Jobabo'},
-      {id: 4, name: 'Otabalo'},
-    ];
-    this.departments = [
-      {id: 1, name: 'Quito'},
-      {id: 2, name: 'Las Tunas'},
-      {id: 3, name: 'Jobabo'},
-      {id: 4, name: 'Otabalo'},
-    ];
-    this.chiefs = [
-      {
-        employeeId: 1,
-        name: 'Jose',
-        lastName: 'Leon',
-        mail: 'email',
-        phone: '',
-        departmentName: '',
-        positionName: '',
-        photo: '',
-      },
-      {
-        employeeId: 2,
-        name: 'Fulano',
-        lastName: 'De Tal',
-        mail: 'email',
-        phone: '',
-        departmentName: '',
-        positionName: '',
-        photo: '',
+  private getCatalogs(): void {
+    forkJoin([
+      this.cityService.findAll(),
+      this.positionService.findAll(),
+      this.departmentService.findAll(),
+    ]).subscribe((response) => {
+      if (response[0]?.data) {
+        this.cities = response[0].data;
       }
-    ];
+      if (response[1]?.data) {
+        this.positions = response[1].data;
+      }
+      if (response[2]?.data) {
+        this.departments = response[2].data;
+      }
+    });
+    this.chiefs = []; // TODO: call chiefs endpoint
   }
 
 }

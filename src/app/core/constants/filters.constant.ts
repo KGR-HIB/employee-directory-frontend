@@ -9,10 +9,11 @@ export const LoginDefaultParams: LoginState = {
 };
 
 export const CurrentUserDefaultParams: User = {
-  userId: 0,
-  mail: '',
+  id: 0,
+  email: '',
   password: '',
-  token: '',
-  hasInitSession: false,
+  tokenType: '',
+  accessToken: '',
+  loginFirstTime: false,
   role: undefined
 };

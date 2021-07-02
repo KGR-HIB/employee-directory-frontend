@@ -3,22 +3,22 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { Category } from '@models';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { Category } from '../../../core/models/category.model';
 
 @Component({
   selector: 'app-employee-category',
   templateUrl: './employee-category.component.html',
   styleUrls: ['./employee-category.component.scss']
 })
-export class EmployeeCategoryComponent implements OnInit{
+export class EmployeeCategoryComponent implements OnInit {
 
   @Input() categoryName!: string;
   @Input() categoryList!: Category[]
-  @Input() savedItems!: Category[]
+  @Input() savedItems!: Category[] | undefined;
   @Output() categoryChanges: EventEmitter<Category[]>;
-  
+
   separatorKeysCodes: number[] = [ENTER, COMMA];
   itemCtrl = new FormControl();
   filteredItems!: Observable<Category[]>;
@@ -35,14 +35,19 @@ export class EmployeeCategoryComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.initialItems = this.savedItems.slice();
+    if (this.savedItems) {
+      this.initialItems = this.savedItems.slice();
+    } else {
+      this.savedItems = [];
+    }
+    
   }
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     // Add our item
-    if (value && !this.existInSavedItems(value)) {
-      this.savedItems.push({name: value});
+    if (value && this.savedItems && !this.existInSavedItems(value)) {
+      this.savedItems.push({ name: value });
     }
     // Clear the input value
     event.chipInput!.clear();
@@ -50,11 +55,17 @@ export class EmployeeCategoryComponent implements OnInit{
   }
 
   private existInSavedItems(value: string): boolean {
+    if (!this.savedItems) {
+      return false;
+    }
     const filterValue = value.toLowerCase();
     return this.savedItems.filter(item => item.name.toLowerCase() === filterValue).length > 0;
   }
 
   remove(item: Category): void {
+    if (!this.savedItems) {
+      return;
+    }
     const index = this.savedItems.indexOf(item);
     if (index >= 0) {
       this.savedItems.splice(index, 1);
@@ -62,8 +73,8 @@ export class EmployeeCategoryComponent implements OnInit{
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    if (event.option.viewValue && !this.existInSavedItems(event.option.viewValue)) {
-      this.savedItems.push({name: event.option.viewValue});
+    if (event.option.viewValue && this.savedItems && !this.existInSavedItems(event.option.viewValue)) {
+      this.savedItems.push({ name: event.option.viewValue });
     }
     this.itemInput.nativeElement.value = '';
     this.itemCtrl.setValue(null);
@@ -76,6 +87,9 @@ export class EmployeeCategoryComponent implements OnInit{
   }
 
   saveItems(): void {
+    if (!this.savedItems) {
+      return;
+    }
     this.isEditionMode = false;
     this.initialItems = this.savedItems.slice();
     this.categoryChanges.emit(this.savedItems);

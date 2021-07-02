@@ -1,12 +1,9 @@
-import { Injectable } from '@angular/core';
 import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
+  HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { AuthService } from '@services';
 import { Observable } from 'rxjs';
-import {AuthService} from '@services';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -22,8 +19,8 @@ export class JwtInterceptor implements HttpInterceptor {
 
     let headers: AppHeaders = {}
 
-    if (currentUser && currentUser.token) {
-      headers = { ...headers, Authorization: `Bearer ${currentUser.token}` };
+    if (currentUser && currentUser.accessToken) {
+      headers = { ...headers, Authorization: `Bearer ${currentUser.accessToken}` };
     }
 
     const responseType = request.responseType;

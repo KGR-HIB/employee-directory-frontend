@@ -18,7 +18,7 @@ export class EmployeeService {
     return this.http.post<PageEmployees>(`${API_URLS.EMPLOYEES}?${page}${param}`, bodyParams);
   }
 
-  // TODO: Change response object to ServiceResponse<SimpleEmployee>
+  // TODO: Change response object to Response<SimpleEmployee>
   listChiefEmployees(queryFilter: string | null): Observable<SimpleEmployee[]> {
     const param = queryFilter && queryFilter.trim() !== '' ? `?query=${queryFilter}` : '';
     return this.http.get<SimpleEmployee[]>(`${API_URLS.EMPLOYEES}${param}`);

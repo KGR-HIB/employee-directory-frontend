@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Certification, Project, Skill } from '@models';
-import { Category } from 'src/app/core/models/category.model';
+import { Category, Certification, Employee, Project, Skill } from '@models';
+import { CertificationService, ProjectService, SkillService } from '@services';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-employee',
@@ -9,14 +10,38 @@ import { Category } from 'src/app/core/models/category.model';
 })
 export class EmployeeComponent implements OnInit {
 
+  employee!: Employee
+  skills!: Skill[];
   projects!: Project[];
   certifications!: Certification[];
-  skills!: Skill[];
 
-  constructor() { }
+  constructor(
+    private skillService: SkillService,
+    private projectService: ProjectService,
+    private certificationService: CertificationService,
+  ) { }
 
   ngOnInit(): void {
-    this.mockCatalogs();
+    // TODO: call endpoint to get employee
+    this.getCatalogs();
+  }
+
+  getCatalogs(): void {
+    forkJoin([
+      this.skillService.findAll(),
+      this.projectService.findAll(),
+      this.certificationService.findAll()
+    ]).subscribe(response => {
+      if (response[0]?.data) {
+        this.skills = response[0].data;
+      }
+      if (response[1]?.data) {
+        this.projects = response[1].data;
+      }
+      if (response[2]?.data) {
+        this.certifications = response[2].data;
+      }
+    });
   }
 
   updateProjects(projects: Category[]): void {
@@ -32,27 +57,6 @@ export class EmployeeComponent implements OnInit {
   updateSkills(skills: Category[]): void {
     // TODO: call service
     console.log(skills);
-  }
-
-  private mockCatalogs(): void {
-    this.certifications = [
-      {id: 1, name: 'Certification #1'},
-      {id: 2, name: 'Certification #2'},
-      {id: 3, name: 'Certification #3'},
-      {id: 4, name: 'Certification #4'},
-    ];
-    this.skills = [
-      {id: 1, name: 'Skill 1'},
-      {id: 2, name: 'Skill 2'},
-      {id: 3, name: 'Skill 3'},
-      {id: 4, name: 'Skill 4'},
-    ];
-    this.projects = [
-      {id: 1, name: 'Project 1'},
-      {id: 2, name: 'Project 2'},
-      {id: 3, name: 'Project 3'},
-      {id: 4, name: 'Project 4'},
-    ];
   }
 
 }

@@ -11,6 +11,7 @@ export const API_URLS = {
 export const CONTEXT_SERVICE = '/directoryServices';
 export const API_URL = '/api/v1/'
 export const REST_CONTROLLER = {
+  LOGIN: 'login',
   CITY: 'cities',
   DEPARTMENT: 'departments',
   CERTIFICATION: 'certifications',

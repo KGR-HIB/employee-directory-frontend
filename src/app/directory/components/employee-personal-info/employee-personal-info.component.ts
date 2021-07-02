@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Employee } from '@models';
 import { APP_ROUTES } from '../../../core/constants/app-routes.constant';
 
 @Component({
@@ -7,6 +8,8 @@ import { APP_ROUTES } from '../../../core/constants/app-routes.constant';
   styleUrls: ['./employee-personal-info.component.scss']
 })
 export class EmployeePersonalInfoComponent implements OnInit {
+
+  @Input() employee!: Employee;
 
   readonly APP_ROUTES = APP_ROUTES;
   

@@ -1,14 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { API_URL, REST_CONTROLLER } from '@constants';
 import { Authentication, User } from '@models';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { HttpBaseService } from './http-base.service';
 
 @Injectable({ providedIn: 'root' })
-export class AuthService {
+export class AuthService extends HttpBaseService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  constructor(private http: HttpClient) {
+  constructor(http: HttpClient) {
+    super(http, `${API_URL}${REST_CONTROLLER.LOGIN}`);
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(String(localStorage.getItem('currentUser')))
     );
@@ -20,22 +24,9 @@ export class AuthService {
   }
 
   login(payload: Authentication): Observable<User> {
-    return of({
-        userId: 1,
-        mail: 'ocastro@gmail.com',
-        password: '',
-        token: 'token',
-        hasInitSession: true,
-        role: {
-          roleId: 1,
-          code: 'admin',
-          name: 'Admin',
-          funtionalities: undefined
-        }
-      });
-    // return this.http.post<User>(
-    //   `${environment.apiUrl}/login`, payload
-    // );
+    return this.post('/', payload).pipe(
+      map((response) => response.data)
+    );
   }
 
 }
