@@ -14,6 +14,7 @@ import { CreateEmployeeComponent } from './conatiners/create-employee/create-emp
 import { EmployeeComponent } from './conatiners/employee/employee.component';
 import { EmployeesComponent } from './conatiners/employees/employees.component';
 import { DirectoryRoutingModule } from './directory-routing.module';
+import { EmployeeFilterCategoryComponent } from './components/employee-filter-category/employee-filter-category.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { DirectoryRoutingModule } from './directory-routing.module';
     EmployeeGenericFilterComponent,
     EmployeePersonalInfoComponent,
     EmployeeCategoryComponent,
-    EmployeePersonalFormComponent
+    EmployeePersonalFormComponent,
+    EmployeeFilterCategoryComponent
   ],
   imports: [
     CommonModule,

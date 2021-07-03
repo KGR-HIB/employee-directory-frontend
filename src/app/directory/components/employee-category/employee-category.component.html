@@ -37,7 +37,7 @@
           </mat-chip-list>
 
           <mat-form-field class="edh-custom-mat-input" appearance="fill" *ngIf="isEditionMode">
-            <mat-label>Favorite items</mat-label>
+            <mat-label>Editar</mat-label>
             <mat-chip-list #chipList aria-label="item selection">
               <mat-chip *ngFor="let item of savedItems" [selectable]="true" [removable]="true" (removed)="remove(item)">
                 {{item.name}}

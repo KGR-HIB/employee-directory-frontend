@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EmployeeFilter, PageEmployees } from '@models';
+import { API_URL, REST_CONTROLLER } from '@constants';
+import { Employee, EmployeeFilter, PageEmployees, Response } from '@models';
 import { Observable } from 'rxjs';
-import { API_URLS } from '../constants/api-url.constant';
+import { MOCKED_PATH } from '../constants/api-url.constant';
 import { SimpleEmployee } from '../models/simple-employee.model';
-import { Employee, Response } from '@models';
-import { REST_CONTROLLER, API_URL } from '@constants';
 import { HttpBaseService } from './http-base.service';
 
 @Injectable({
@@ -17,15 +16,15 @@ export class EmployeeService extends HttpBaseService {
     super(http, `${API_URL}${REST_CONTROLLER.EMPLOYEE}`);
   }
 
-  listEmployees(page: number, queryFilter: string, bodyParams: EmployeeFilter): Observable<PageEmployees> {
+  listEmployees(queryFilter: string | null, bodyParams: EmployeeFilter | {}, page: number = 1): Observable<Response<PageEmployees>> {
     const param = queryFilter && queryFilter.trim() !== '' ? `&query=${queryFilter}` : '';
-    return this.http.post<PageEmployees>(`${API_URLS.EMPLOYEES}?${page}${param}`, bodyParams);
+    return this.post(`/page?${page}${param}`, bodyParams);
   }
 
   // TODO: Change response object to Response<SimpleEmployee>
   listChiefEmployees(queryFilter: string | null): Observable<SimpleEmployee[]> {
     const param = queryFilter && queryFilter.trim() !== '' ? `?query=${queryFilter}` : '';
-    return this.http.get<SimpleEmployee[]>(`${API_URLS.EMPLOYEES}${param}`);
+    return this.http.get<SimpleEmployee[]>(`${MOCKED_PATH}${param}`);
   }
 
   /**

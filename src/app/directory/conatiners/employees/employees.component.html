@@ -1,3 +1,18 @@
 <app-layout title="Empleados">
-  <app-employee-list [employees]="employees"></app-employee-list>
+
+  <div class="row">
+    <div class="col-lg-9">
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-3">
+      <app-employee-advance-filters (employeeFilter)="searchByAdvanceFilters($event)"></app-employee-advance-filters>
+    </div>
+    <div class="col-lg-9">
+      <app-employee-list [employees]="employees"></app-employee-list>
+    </div>
+  </div>
+
 </app-layout>

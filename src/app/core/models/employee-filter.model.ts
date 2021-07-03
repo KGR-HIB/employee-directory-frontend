@@ -7,7 +7,7 @@ import { Skill } from "./skill.model";
 
 export interface EmployeeFilter {
   positions: Position[];
-  deparments: Department[];
+  departments: Department[];
   projects: Project[];
   cities: City[];
   skills: Skill[];

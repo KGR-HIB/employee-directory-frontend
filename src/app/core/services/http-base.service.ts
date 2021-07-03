@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CONTEXT_SERVICE } from '@constants';
 import { Observable, throwError } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
-import { CONTEXT_SERVICE } from '../constants/api-url.constant';
 
 /**
  * Base service for fetch http services
@@ -29,7 +30,7 @@ export abstract class HttpBaseService {
   }
 
   get baseUrl(): string {
-    return `${CONTEXT_SERVICE}${this.controller}`;
+    return `${environment.apiUrl}${CONTEXT_SERVICE}${this.controller}`;
   }
 
   /**

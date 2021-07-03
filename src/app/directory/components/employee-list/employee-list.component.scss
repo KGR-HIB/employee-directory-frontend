@@ -19,14 +19,15 @@
 
 .edh-employee-card {
   border-radius: 4px;
-  max-width: 385px;
-  max-height: 1000px;
-  margin-top: 100px;
+  // max-width: 385px;
+  // max-height: 1000px;
+  width: 100%;
+  margin-bottom: 20px;
   padding: 0;
 
   .mat-card-image {
     margin: 0;
-    width: 11em;
+    width: 10em;
   }
 
   .edh-employee-card-content {

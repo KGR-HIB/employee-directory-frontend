@@ -43,9 +43,6 @@ export class EmployeePersonalFormComponent implements OnInit {
   ngOnInit(): void {
     this.getCatalogs();
     this.createFormFields();
-    this.autocCityListener();
-    this.autocDepartmentListener();
-    this.autocPositionListener();
   }
 
   private createFormFields() {
@@ -148,12 +145,15 @@ export class EmployeePersonalFormComponent implements OnInit {
     ]).subscribe((response) => {
       if (response[0]?.data) {
         this.cities = response[0].data;
+        this.autocCityListener();
       }
       if (response[1]?.data) {
         this.positions = response[1].data;
+        this.autocPositionListener();
       }
       if (response[2]?.data) {
         this.departments = response[2].data;
+        this.autocDepartmentListener();
       }
     });
     this.chiefs = []; // TODO: call chiefs endpoint

@@ -1,1 +1,44 @@
-<p>employee-advance-filters works!</p>
+<mat-card>
+  <mat-card-content>
+    <button mat-icon-button class="edh-close-button" aria-label="close" (click)="closeAdvanceFilters()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <div class="mt-3">
+
+      <app-employee-filter-category [categoryName]="'Cargo'" [categoryList]="positions" [clearSelection]="clearSelections"
+        (categoryChanges)="filterByPosition($event)">
+      </app-employee-filter-category>
+
+      <app-employee-filter-category [categoryName]="'Área'" [categoryList]="departments" [clearSelection]="clearSelections"
+        (categoryChanges)="filterByDepartment($event)">
+      </app-employee-filter-category>
+
+      <app-employee-filter-category [categoryName]="'Proyecto'" [categoryList]="projects" [clearSelection]="clearSelections"
+        (categoryChanges)="filterByProject($event)">
+      </app-employee-filter-category>
+
+      <app-employee-filter-category [categoryName]="'Ciudad'" [categoryList]="cities" [clearSelection]="clearSelections"
+        (categoryChanges)="filterByCity($event)">
+      </app-employee-filter-category>
+
+      <app-employee-filter-category [categoryName]="'Tecnología'" [categoryList]="skills" [clearSelection]="clearSelections"
+        (categoryChanges)="filterBySkill($event)">
+      </app-employee-filter-category>
+
+      <app-employee-filter-category [categoryName]="'Certificación'" [categoryList]="certifications" [clearSelection]="clearSelections"
+        (categoryChanges)="filterByCertification($event)">
+      </app-employee-filter-category>
+
+    </div>
+    <div class="edh-button-container mt-2">
+      <button mat-stroked-button class="me-2" (click)="clearAdvanceFilters()">
+        Limpiar filtros
+      </button>
+
+      <button mat-flat-button color="primary" (click)="sendAdvanceFiltersToParent()">
+        Buscar
+      </button>
+
+    </div>
+  </mat-card-content>
+</mat-card>
