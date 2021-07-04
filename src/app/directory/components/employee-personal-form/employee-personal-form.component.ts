@@ -29,6 +29,7 @@ export class EmployeePersonalFormComponent implements OnInit {
   filteredDepartments!: Observable<Department[]>;
   departments!: Department[];
   chiefs!: SimpleEmployee[];
+  markRequired!: boolean;
 
   readonly APP_ROUTES = APP_ROUTES;
 
@@ -137,6 +138,10 @@ export class EmployeePersonalFormComponent implements OnInit {
     return ValidationUtils.isControlHasError(this.formGroup, controlName, validationType);
   }
 
+  setSelectedChief(event: any): void {
+    this.formGroup.controls.chief.setValue(event)
+  }
+
   private getCatalogs(): void {
     forkJoin([
       this.cityService.findAll(),
@@ -156,7 +161,6 @@ export class EmployeePersonalFormComponent implements OnInit {
         this.autocDepartmentListener();
       }
     });
-    this.chiefs = []; // TODO: call chiefs endpoint
   }
 
 }
