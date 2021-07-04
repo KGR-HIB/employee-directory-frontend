@@ -1,0 +1,26 @@
+@import '/src/styles/partials/variables';
+
+.hbr-paginator {
+  margin: 0;
+}
+
+.hbr-paginator .page-item .page-link {
+  border: none;
+  border-radius: 50%;
+  background-color: $color-alternative;
+  color: $color-white;
+  margin: 0 0.2em;
+  padding: 0.2em 0.64em;
+}
+
+.hbr-paginator .page-item.active .page-link {
+  background-color: $color-primary;
+}
+
+.hbr-paginator .pagination-prev .page-link,
+.hbr-paginator .pagination-next .page-link,
+.hbr-paginator .pagination-first .page-link,
+.hbr-paginator .pagination-last .page-link {
+  padding: 0.08em 0.12em;
+  line-height: 0.8em;
+}

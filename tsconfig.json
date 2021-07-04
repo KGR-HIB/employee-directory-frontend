@@ -10,7 +10,8 @@
       "@effects": ["src/app/store/effects/index.ts"],
       "@store": ["src/app/store/app.states.ts"],
       "@interceptors": ["src/app/core/interceptors/index.ts"],
-      "@constants": ["src/app/core/constants/index.ts"]
+      "@constants": ["src/app/core/constants/index.ts"],
+      "@share/*": ["src/app/share/*"]
     },
     "outDir": "./dist",
     "forceConsistentCasingInFileNames": true,

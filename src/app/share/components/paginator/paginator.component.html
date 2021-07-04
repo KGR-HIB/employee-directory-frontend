@@ -1,0 +1,75 @@
+<div class="d-flex align-items-center">
+  <span>Pág {{ currentPage }}/{{ numPages }}</span>
+  <div class="d-inline-block mx-2">
+    <pagination
+      pageBtnClass="btn"
+      class="hbr-paginator"
+      [(ngModel)]="currentPage"
+      [totalItems]="pagination.totalItems"
+      [itemsPerPage]="pagination.itemsPerPage"
+      [boundaryLinks]="true"
+      [directionLinks]="true"
+      [maxSize]="pagination.maxPages"
+      [customFirstTemplate]="firstTemplate"
+      [customLastTemplate]="lastTemplate"
+      [customPreviousTemplate]="prevTemplate"
+      [customNextTemplate]="nextTemplate"
+      [customPageTemplate]="pageTemplate"
+      (numPages)="numPages = $event"
+      (pageChanged)="onPageChange($event)"
+    >
+    </pagination>
+  </div>
+  <span>Total: {{ pagination.totalItems }}</span>
+</div>
+
+<ng-template
+  #pageTemplate
+  let-page
+  let-disabled="disabled"
+  let-currentPage="currentPage"
+>
+  {{ page.number }}
+</ng-template>
+
+<ng-template
+  #nextTemplate
+  let-disabled="disabled"
+  let-currentPage="currentPage"
+>
+  <ng-container *ngIf="!disabled">
+    <mat-icon>navigate_next</mat-icon>
+  </ng-container>
+  <ng-container *ngIf="disabled">
+    <mat-icon>navigate_next</mat-icon>
+  </ng-container>
+</ng-template>
+
+<ng-template
+  #prevTemplate
+  let-disabled="disabled"
+  let-currentPage="currentPage"
+>
+  <ng-container *ngIf="!disabled">
+    <mat-icon>navigate_before</mat-icon>
+  </ng-container>
+  <ng-container *ngIf="disabled">
+    <mat-icon>navigate_before</mat-icon>
+  </ng-container>
+</ng-template>
+
+<ng-template
+  #lastTemplate
+  let-disabled="disabled"
+  let-currentPage="currentPage"
+>
+  <mat-icon>last_page</mat-icon>
+</ng-template>
+
+<ng-template
+  #firstTemplate
+  let-disabled="disabled"
+  let-currentPage="currentPage"
+>
+  <mat-icon>first_page</mat-icon>
+</ng-template>
