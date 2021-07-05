@@ -1,21 +1,14 @@
 <header class="navbar navbar-expand-md navbar-light bg-light sticky-top">
   <nav class="container-xxl flex-wrap flex-md-nowrap">
     <a href="/" class="navbar-brand">Directorio de Empleados</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toogle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toogle navigation">
       <span class="navbar-toggle-icon"></span>
     </button>
     <div class="navbar-collapse collapse" id="navbarNav">
       <ul class="navbar-nav flex-row flex-wrap ms-md-auto align-items-center">
         <li class="nav-item col-3 col-md-auto">
-          <a routerLink="/employee" class="nav-link p-2">Mi perfil</a>
+          <a routerLink="/employees/{{user?.id}}" class="nav-link p-2">Mi perfil</a>
         </li>
         <li class="nav-item col-3 col-md-auto">
           <a routerLink="/employees" class="nav-link p-2">Directorio</a>
@@ -28,25 +21,16 @@
       <a class="nav-link my-2 d-md-none" routerLink="/">Cerrar sesión</a>
     </div>
     <div class="dropdown d-none d-md-block">
-      <a
-        id="navbarDropdownUser"
-        href="#"
-        class="nav-link dropdown-toggle"
-        role="button"
-        data-bs-toggle="dropdown"
-      >
+      <a id="navbarDropdownUser" href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
         <div style="position: relative; display: inline-block; height: 2rem">
-          <img
-            style="object-fit: cover; height: 100%"
-            class="rounded-circle"
-            src="https://prium.github.io/falcon/v2.8.2/default/assets/img/team/3-thumb.png"
-            alt=""
-          />
+          <img style="object-fit: cover; height: 100%" class="rounded-circle"
+            src="https://prium.github.io/falcon/v2.8.2/default/assets/img/team/3-thumb.png" alt="" />
         </div>
       </a>
       <div class="dropdown-menu dropdown-menu-end">
+        <span style="font-size: smaller; font-weight: 500; margin: 10px;">{{ user?.email }}</span>
         <div class="bg-white">
-          <a href="" class="dropdown-item">Cerrar sesión</a>
+          <a href="" class="dropdown-item" (click)="signOut()">Cerrar sesión</a>
         </div>
       </div>
     </div>

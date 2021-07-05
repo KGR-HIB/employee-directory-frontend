@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ReplaySubject, Subject } from 'rxjs';
 import { debounceTime, filter, finalize, map, takeUntil, tap } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { ValidationUtils } from '../../../share/validation.util';
 })
 export class DropdownChiefComponent implements OnInit, OnDestroy {
 
+  @Input() initialValue!: SimpleEmployee | undefined;
   @Output() selectedData: EventEmitter<SimpleEmployee[]>;
 
   public employeeCtrl: FormControl = new FormControl();
@@ -21,11 +22,22 @@ export class DropdownChiefComponent implements OnInit, OnDestroy {
   public filteredEmployees: ReplaySubject<SimpleEmployee[]> = new ReplaySubject<SimpleEmployee[]>(1);
   protected _onDestroy = new Subject<void>();
 
-  constructor(private employeeService: EmployeeService) {
+  constructor(
+    private employeeService: EmployeeService
+  ) {
     this.selectedData = new EventEmitter();
   }
 
   ngOnInit() {
+    if (this.initialValue) {
+      // TODO: find by id
+      this.employeeService.listChiefEmployees(this.initialValue.name).pipe(
+        finalize(() => this.searching = false)
+      ).subscribe(response => {
+        this.filteredEmployees.next(response);
+        this.employeeCtrl.setValue(response ? response[0] : null);
+      });
+    }
     this.employeeFilteringCtrl.valueChanges
       .pipe(
         filter(search => !!search),

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Category, Certification, Employee, Project, Skill, Response } from '@models';
-import { CertificationService, ProjectService, SkillService, EmployeeService } from '@services';
+import { Category, Certification, Employee, Project, Response, Skill } from '@models';
+import { CertificationService, EmployeeService, ProjectService, SkillService } from '@services';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -15,18 +15,27 @@ export class EmployeeComponent implements OnInit {
   skills!: Skill[];
   projects!: Project[];
   certifications!: Certification[];
+  isEditionMode!: boolean;
 
   constructor(
     private skillService: SkillService,
     private projectService: ProjectService,
     private certificationService: CertificationService,
     private employeeService: EmployeeService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe(params => this.fetchEmployeeSheet(params.id));
     this.getCatalogs();
+  }
+
+  private fetchEmployeeSheet(id: number) {
+    this.employeeService.getEmployeeSheet(id)
+      .subscribe((response: Response<Employee>) => {
+        this.employee = response.data;
+        this.isEditionMode = false;
+      });
   }
 
   getCatalogs(): void {
@@ -62,11 +71,15 @@ export class EmployeeComponent implements OnInit {
     console.log(skills);
   }
 
-  private fetchEmployeeSheet(id: number) {
-    this.employeeService.getEmployeeSheet(id)
-    .subscribe((response: Response<Employee>) => {
-      this.employee = response.data;
-    });
+  goToPrincipalInfoEdition(edit: boolean): void {
+    this.isEditionMode = edit;
+  }
+
+  managePrincipalInfoEdition(edited: boolean): void {
+    this.isEditionMode = edited;
+    if (edited) {
+      this.fetchEmployeeSheet(this.employee.id);
+    }
   }
 
 }
