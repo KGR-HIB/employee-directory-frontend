@@ -1,3 +1,10 @@
+.edh-filters__content {
+  height: calc(100vh - 25rem);
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-top: 1.5em;
+}
+
 .edh-button-container {
   display: flex;
   justify-content: flex-end;

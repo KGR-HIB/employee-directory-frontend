@@ -1,32 +1,42 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Category, Department, EmployeeFilter, Position, Skill } from '@models';
-import { forkJoin } from 'rxjs';
-import { Certification } from '../../../core/models/certification.model';
-import { City } from '../../../core/models/city.model';
-import { Project } from '../../../core/models/project.model';
-import { CertificationService } from '../../../core/services/certification.service';
-import { CityService } from '../../../core/services/city.service';
-import { DepartmentService } from '../../../core/services/department.service';
-import { PositionService } from '../../../core/services/position.service';
-import { ProjectService } from '../../../core/services/project.service';
-import { SkillService } from '../../../core/services/skill.service';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { forkJoin } from "rxjs";
+
+import {
+  Certification,
+  City,
+  Project,
+  Category,
+  Department,
+  EmployeeFilter,
+  Position,
+  Skill,
+} from "@models";
+
+import {
+  CertificationService,
+  CityService,
+  DepartmentService,
+  PositionService,
+  ProjectService,
+  SkillService,
+} from "@services";
 
 @Component({
-  selector: 'app-employee-advance-filters',
-  templateUrl: './employee-advance-filters.component.html',
-  styleUrls: ['./employee-advance-filters.component.scss']
+  selector: "app-employee-advance-filters",
+  templateUrl: "./employee-advance-filters.component.html",
+  styleUrls: ["./employee-advance-filters.component.scss"],
 })
 export class EmployeeAdvanceFiltersComponent implements OnInit {
+  @Output() employeeFilter: EventEmitter<EmployeeFilter>;
+  @Output() close: EventEmitter<void>;
 
-  @Output() employeeFilter: EventEmitter<EmployeeFilter>
-
-  positions!: Position[]
-  departments!: Department[]
-  projects!: Project[]
-  cities!: City[]
-  skills!: Skill[]
+  positions!: Position[];
+  departments!: Department[];
+  projects!: Project[];
+  cities!: City[];
+  skills!: Skill[];
   certifications!: Certification[];
-  selectedFilters!: EmployeeFilter;
+  @Input() filters!: EmployeeFilter;
   clearSelections = false;
 
   constructor(
@@ -35,20 +45,13 @@ export class EmployeeAdvanceFiltersComponent implements OnInit {
     private positionService: PositionService,
     private projectService: ProjectService,
     private skillService: SkillService,
-    private cityService: CityService,
+    private cityService: CityService
   ) {
     this.employeeFilter = new EventEmitter();
+    this.close = new EventEmitter();
   }
 
   ngOnInit(): void {
-    this.selectedFilters = {
-      positions: [],
-      departments: [],
-      projects: [],
-      cities: [],
-      skills: [],
-      certifications: []
-    };
     this.getCatalogs();
   }
 
@@ -83,45 +86,52 @@ export class EmployeeAdvanceFiltersComponent implements OnInit {
   }
 
   filterByPosition(filter: Category[]): void {
-    this.selectedFilters.positions = filter.map(c => ({ id: c.id, name: c.name }));
+    console.log(filter);
+    this.filters.positions = filter.map((c) => c.id);
     this.clearSelections = false;
   }
 
   filterByDepartment(filter: Category[]): void {
-    this.selectedFilters.departments = filter.map(c => ({ id: c.id, name: c.name }));
+    this.filters.departments = filter.map((c) => c.id);
     this.clearSelections = false;
   }
 
   filterByProject(filter: Category[]): void {
-    this.selectedFilters.projects = filter.map(c => ({ id: c.id, name: c.name }));
+    this.filters.projects = filter.map((c) => c.id);
     this.clearSelections = false;
   }
 
   filterByCity(filter: Category[]): void {
-    this.selectedFilters.cities = filter.map(c => ({ id: c.id, name: c.name }));
+    this.filters.cities = filter.map((c) => c.id);
     this.clearSelections = false;
   }
 
   filterBySkill(filter: Category[]): void {
-    this.selectedFilters.skills = filter.map(c => ({ id: c.id, name: c.name }));
+    this.filters.skills = filter.map((c) => c.id);
     this.clearSelections = false;
   }
 
   filterByCertification(filter: Category[]): void {
-    this.selectedFilters.certifications = filter.map(c => ({ id: c.id, name: c.name }));
+    this.filters.certifications = filter.map((c) => c.id);
     this.clearSelections = false;
   }
 
   sendAdvanceFiltersToParent(): void {
-    console.log(this.selectedFilters);
-    this.employeeFilter.emit(this.selectedFilters);
+    this.employeeFilter.emit(this.filters);
   }
 
   clearAdvanceFilters(): void {
     this.clearSelections = true;
+    this.filters.positions = [];
+    this.filters.departments = [];
+    this.filters.projects = [];
+    this.filters.cities = [];
+    this.filters.skills = [];
+    this.filters.certifications = [];
     this.sendAdvanceFiltersToParent();
   }
 
-  closeAdvanceFilters(): void { }
-
+  closeAdvanceFilters(): void {
+    this.close.emit();
+  }
 }

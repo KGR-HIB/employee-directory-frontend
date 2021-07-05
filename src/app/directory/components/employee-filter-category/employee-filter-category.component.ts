@@ -69,7 +69,7 @@ export class EmployeeFilterCategoryComponent implements OnChanges {
 
   selected(event: MatAutocompleteSelectedEvent): void {
     if (event.option.viewValue && !this.existInSavedItems(event.option.viewValue)) {
-      this.savedItems.push({ name: event.option.viewValue });
+      this.savedItems.push(event.option.value);
     }
     this.itemInput.nativeElement.value = '';
     this.itemCtrl.setValue(null);

@@ -1,10 +1,9 @@
 <mat-card>
   <mat-card-content>
     <button mat-icon-button class="edh-close-button" aria-label="close" (click)="closeAdvanceFilters()">
-      <mat-icon>close</mat-icon>
+      <mat-icon>cancel</mat-icon>
     </button>
-    <div class="mt-3">
-
+    <div class="edh-filters__content">
       <app-employee-filter-category [categoryName]="'Cargo'" [categoryList]="positions" [clearSelection]="clearSelections"
         (categoryChanges)="filterByPosition($event)">
       </app-employee-filter-category>
@@ -31,14 +30,9 @@
 
     </div>
     <div class="edh-button-container mt-2">
-      <button mat-stroked-button class="me-2" (click)="clearAdvanceFilters()">
+      <button mat-stroked-button (click)="clearAdvanceFilters()">
         Limpiar filtros
       </button>
-
-      <button mat-flat-button color="primary" (click)="sendAdvanceFiltersToParent()">
-        Buscar
-      </button>
-
     </div>
   </mat-card-content>
 </mat-card>
