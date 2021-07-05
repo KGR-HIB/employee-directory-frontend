@@ -2,3 +2,11 @@
   width: 20em;
   flex-shrink: 0;
 }
+
+@media (max-width: 768px) {
+  .hbr-employees__filters {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}

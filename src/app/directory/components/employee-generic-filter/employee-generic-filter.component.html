@@ -7,6 +7,7 @@
           class="form-control shadow-none pe-5"
           [(ngModel)]="query"
           placeholder="Buscar por nombres, apellidos o correo electrónico"
+          (keyup)="keyUpInputHandler($event)"
         />
         <mat-icon *ngIf="hasValue" class="hbr-search__clear" (click)="clickClearHandler()"
           >clear</mat-icon

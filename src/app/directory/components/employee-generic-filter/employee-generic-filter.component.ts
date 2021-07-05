@@ -34,4 +34,10 @@ export class EmployeeGenericFilterComponent {
     this.query = "";
     this.clickSearch.emit(this.query);
   }
+
+  keyUpInputHandler(event: any): void {
+    if (event.keyCode === 13) {
+      this.clickSearch.emit(this.query);
+    }
+  }
 }
