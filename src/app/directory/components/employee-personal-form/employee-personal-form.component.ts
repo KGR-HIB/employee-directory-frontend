@@ -1,15 +1,12 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { VALIDATIONS } from '@constants';
-import { CityService, DepartmentService, PositionService } from '@services';
+import { Router } from '@angular/router';
+import { APP_ROUTES, VALIDATIONS } from '@constants';
+import { City, Department, Employee, EmployeeManage, Position, SimpleEmployee } from '@models';
+import { CityService, DepartmentService, EmployeeService, PositionService } from '@services';
 import { forkJoin, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { City } from 'src/app/core/models/city.model';
-import { Department } from 'src/app/core/models/department.model';
-import { Position } from 'src/app/core/models/position.model';
-import { SimpleEmployee } from 'src/app/core/models/simple-employee.model';
-import { APP_ROUTES } from '../../../core/constants/app-routes.constant';
 import { ValidationUtils } from '../../../share/validation.util';
 
 @Component({
@@ -18,6 +15,9 @@ import { ValidationUtils } from '../../../share/validation.util';
   styleUrls: ['./employee-personal-form.component.scss']
 })
 export class EmployeePersonalFormComponent implements OnInit {
+
+  @Input() employee!: Employee;
+  @Output() edited!: EventEmitter<boolean>;
 
   formGroup!: FormGroup;
   isHiddenPassword = true;
@@ -29,16 +29,21 @@ export class EmployeePersonalFormComponent implements OnInit {
   filteredDepartments!: Observable<Department[]>;
   departments!: Department[];
   chiefs!: SimpleEmployee[];
+  markRequired!: boolean;
 
   readonly APP_ROUTES = APP_ROUTES;
 
   constructor(
+    private employeeService: EmployeeService,
     private cityService: CityService,
     private positionService: PositionService,
     private departmentService: DepartmentService,
     private formBuilder: FormBuilder,
-    private location: Location
-  ) { }
+    private location: Location,
+    private router: Router
+  ) {
+    this.edited = new EventEmitter();
+  }
 
   ngOnInit(): void {
     this.getCatalogs();
@@ -47,7 +52,7 @@ export class EmployeePersonalFormComponent implements OnInit {
 
   private createFormFields() {
     this.formGroup = this.formBuilder.group({
-      mail: [null, Validators.compose([
+      email: [null, Validators.compose([
         Validators.required,
         Validators.pattern(VALIDATIONS.EMAIL_REGEX),
       ])],
@@ -72,10 +77,22 @@ export class EmployeePersonalFormComponent implements OnInit {
       city: [null, Validators.compose([
         Validators.required
       ])],
-      chief: [null, Validators.compose([
-        Validators.required
-      ])],
+      chief: [null, null],
     });
+    this.fillExistingEmployeeData();
+  }
+
+  private fillExistingEmployeeData(): void {
+    if (this.employee) {
+      this.formGroup.controls.name.setValue(this.employee.name);
+      this.formGroup.controls.lastName.setValue(this.employee.lastName);
+      this.formGroup.controls.email.setValue(this.employee?.user?.email);
+      this.formGroup.controls.phone.setValue(this.employee.phone);
+      this.formGroup.controls.city.setValue(this.employee.city.name);
+      this.formGroup.controls.department.setValue(this.employee.department.name);
+      this.formGroup.controls.position.setValue(this.employee.position.name);
+      this.formGroup.controls.chief.setValue(this.employee.immediateChief);
+    }
   }
 
   private autocCityListener() {
@@ -127,14 +144,47 @@ export class EmployeePersonalFormComponent implements OnInit {
       return;
     }
     this.loading = true;
+    const data: EmployeeManage = {
+      id: this.employee?.id,
+      name: controls.name.value,
+      lastName: controls.lastName.value,
+      phone: controls.phone.value,
+      department: { name: controls.department.value },
+      position: { name: controls.position.value },
+      city: { name: controls.city.value },
+      immediateChiefId: controls.chief.value.id,
+      user: {
+        email: controls.email.value,
+        password: controls.password.value,
+        roleId: 1
+      }
+    }
+    this.employeeService.createEmployee(data).subscribe(response => {
+      if (response?.data?.id && !this.employee) {
+        if (!this.employee) {
+          this.router.navigate([APP_ROUTES.EMPLOYEE, response.data.id]);
+          return;
+        }
+        console.log('Emiting success editing');
+        this.edited.emit(true);
+      }
+    });
   }
 
   cancel(): void {
-    this.location.back();
+    if (!this.employee) {
+      this.location.back();
+      return;
+    }
+    this.edited.emit(false);
   }
 
   isControlHasError(controlName: string, validationType: string): boolean {
     return ValidationUtils.isControlHasError(this.formGroup, controlName, validationType);
+  }
+
+  setSelectedChief(event: any): void {
+    this.formGroup.controls.chief.setValue(event)
   }
 
   private getCatalogs(): void {
@@ -156,7 +206,6 @@ export class EmployeePersonalFormComponent implements OnInit {
         this.autocDepartmentListener();
       }
     });
-    this.chiefs = []; // TODO: call chiefs endpoint
   }
 
 }

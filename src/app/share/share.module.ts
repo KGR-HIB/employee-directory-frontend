@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { AngularMaterialModule } from './angular-material.module';
@@ -8,7 +9,6 @@ import { CropperDialogComponent } from './components/load-image/cropper-dialog/c
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { LoadImageComponent } from './components/load-image/load-image.component';
 import { DefaultImgOnErrorDirective } from './directives/default-img-onerror.directive';
-
 
 @NgModule({
   declarations: [
@@ -19,6 +19,7 @@ import { DefaultImgOnErrorDirective } from './directives/default-img-onerror.dir
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     ImageCropperModule,
     AngularMaterialModule,
     FormsModule,

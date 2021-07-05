@@ -3,6 +3,7 @@ import { City } from './city.model';
 import { Department } from './department.model';
 import { Position } from './position.model';
 import { Project } from './project.model';
+import { SimpleEmployee } from './simple-employee.model';
 import { Skill } from './skill.model';
 import { User } from './user.model';
 
@@ -19,4 +20,5 @@ export interface Employee {
   projects: Project[];
   certifications: Certification[];
   skills: Skill[];
+  immediateChief: SimpleEmployee;
 }

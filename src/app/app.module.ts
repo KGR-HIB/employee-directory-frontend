@@ -1,9 +1,10 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthEffects } from '@effects';
-import { ErrorInterceptor, JwtInterceptor } from '@interceptors';
+import { ErrorInterceptor, JwtInterceptor, LoaderInterceptor } from '@interceptors';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
@@ -38,11 +39,13 @@ import { metaReducers, reducers } from './store/reducers';
       AuthEffects
     ]),
     StoreModule.forRoot(reducers, { metaReducers }),
+    MatProgressBarModule,
   ],
   providers: [
     ToastrService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

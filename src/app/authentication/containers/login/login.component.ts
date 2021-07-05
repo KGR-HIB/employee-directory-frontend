@@ -5,7 +5,6 @@ import { VALIDATIONS } from '@constants';
 import { Authentication } from "@models";
 import { Store } from "@ngrx/store";
 import { GlobalState } from "@store";
-import { Observable } from "rxjs";
 import { ValidationUtils } from '../../../share/validation.util';
 
 @Component({
@@ -16,8 +15,6 @@ import { ValidationUtils } from '../../../share/validation.util';
 export class LoginComponent implements OnInit {
 
   formGroup!: FormGroup;
-  loading$: Observable<boolean>;
-  loading!: boolean;
   isHiddenPassword = true;
 
   constructor(
@@ -25,11 +22,9 @@ export class LoginComponent implements OnInit {
     private store: Store<GlobalState>,
   ) {
     this.createFormFields();
-    this.loading$ = this.store.select((store) => store.authentication.isLoading);
-    this.loading$.subscribe(load => this.loading = load);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   private createFormFields() {
     this.formGroup = this.formBuilder.group({
@@ -58,7 +53,7 @@ export class LoginComponent implements OnInit {
       password: controls.password.value
     };
 
-    this.store.dispatch(AuthAction.LoginBegin({payload}));
+    this.store.dispatch(AuthAction.LoginBegin({ payload }));
   }
 
   isControlHasError(controlName: string, validationType: string): boolean {

@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularMaterialModule } from '../share/angular-material.module';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { CoreModule } from '../core/core.module';
+import { AngularMaterialModule } from '../share/angular-material.module';
 import { ShareModule } from '../share/share.module';
+import { DropdownChiefComponent } from './components/dropdown-chief/dropdown-chief.component';
 import { EmployeeAdvanceFiltersComponent } from './components/employee-advance-filters/employee-advance-filters.component';
 import { EmployeeCategoryComponent } from './components/employee-category/employee-category.component';
+import { EmployeeFilterCategoryComponent } from './components/employee-filter-category/employee-filter-category.component';
 import { EmployeeGenericFilterComponent } from './components/employee-generic-filter/employee-generic-filter.component';
 import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 import { EmployeePersonalFormComponent } from './components/employee-personal-form/employee-personal-form.component';
@@ -15,8 +18,6 @@ import { CreateEmployeeComponent } from './conatiners/create-employee/create-emp
 import { EmployeeComponent } from './conatiners/employee/employee.component';
 import { EmployeesComponent } from './conatiners/employees/employees.component';
 import { DirectoryRoutingModule } from './directory-routing.module';
-import { EmployeeFilterCategoryComponent } from './components/employee-filter-category/employee-filter-category.component';
-
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { EmployeeFilterCategoryComponent } from './components/employee-filter-ca
     EmployeeCategoryComponent,
     EmployeePersonalFormComponent,
     EmployeeFilterCategoryComponent,
+    DropdownChiefComponent,
     EmployeeCard
   ],
   imports: [
@@ -40,6 +42,7 @@ import { EmployeeFilterCategoryComponent } from './components/employee-filter-ca
     AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxMatSelectSearchModule
   ]
 })
 export class DirectoryModule { }

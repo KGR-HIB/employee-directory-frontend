@@ -15,7 +15,7 @@ export const LoginFiled = createAction(
 
 export const LogOutBegin = createAction(
   '[AUTHENTICATION] LogOut Begin',
-  props<{ tokenId: User['accessToken'] }>()
+  props<{ accessToken: User['accessToken'] }>()
 );
 export const LogOutSuccess = createAction(
   '[AUTHENTICATION] LogOut Success'

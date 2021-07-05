@@ -1,0 +1,14 @@
+<mat-form-field appearance="outline" class="edh-custom-mat-input">
+  <mat-label>Responsable</mat-label>
+  <mat-select [formControl]="employeeCtrl" placeholder="Buscar responsable..." (selectionChange)="onSelectionChange($event)">
+    <mat-option>
+      <ngx-mat-select-search [formControl]="employeeFilteringCtrl" [searching]="searching"></ngx-mat-select-search>
+    </mat-option>
+    <mat-option *ngFor="let item of filteredEmployees | async" [value]="item">
+      {{ item.name }} {{ item.lastName }}
+    </mat-option>
+  </mat-select>
+  <mat-error *ngIf="isControlHasError('required')">
+    <strong>Campo requerido</strong>
+  </mat-error>
+</mat-form-field>

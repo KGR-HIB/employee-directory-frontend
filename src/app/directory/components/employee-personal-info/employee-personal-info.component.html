@@ -3,7 +3,7 @@
   <mat-card class="example-card">
     <mat-card-header>
       <div class="edh-card-actions">
-        <button mat-mini-fab color="primary" aria-label="Edit profile" routerLink="/{{APP_ROUTES.EMPLOYEE_CREATION}}">
+        <button mat-mini-fab color="primary" aria-label="Edit profile" (click)="goToEdit()">
           <mat-icon>mode_edit</mat-icon>
         </button>
       </div>
@@ -12,7 +12,6 @@
       <div class="row pb-3">
         <div class="col-lg-3 col-sm-12 edh-profile-img">
 
-          <!-- TODO: preguntar si la img la envian con el mimeType (data:image/png;base64,) -->
           <img src="{{employee.photo}}" appDefImg class="edh-profile-img-border" alt="Profile image">
 
         </div>
@@ -58,7 +57,9 @@
 
             <div class="col-md-3 col-sm-12 edh-title-desc pb-3">
               <span class="edh-title-label">Responsable</span>
-              <span class="edh-normal-label">Definir en modelo</span>
+              <span class="edh-normal-label">
+                {{ employee?.immediateChief?.name }} {{ employee?.immediateChief?.lastName }}
+              </span>
             </div>
 
           </div>

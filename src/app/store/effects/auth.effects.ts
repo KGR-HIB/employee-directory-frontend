@@ -1,14 +1,14 @@
-import {Injectable} from '@angular/core';
-import {Actions, ofType, createEffect} from '@ngrx/effects';
-import {catchError, exhaustMap, map} from 'rxjs/operators';
-import {Router} from '@angular/router';
-import {of} from 'rxjs';
-import {AuthAction} from '@actions';
-import {AuthService} from '@services';
-import {ToastrService} from 'ngx-toastr';
-import {APP_ROUTES} from "@constants";
+import { AuthAction } from '@actions';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { APP_ROUTES } from "@constants";
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { AuthService } from '@services';
+import { ToastrService } from 'ngx-toastr';
+import { of } from 'rxjs';
+import { catchError, exhaustMap, map } from 'rxjs/operators';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class AuthEffects {
 
   login$ = createEffect(() =>
@@ -26,9 +26,7 @@ export class AuthEffects {
             });
           }),
           catchError((err) => {
-            if (err === 0) {
-              this.alert.error('Revise su conexión y vuelva a intentarlo');
-            } else if (err !== 401 && err !== 403) {
+            if (err !== 401 && err !== 403) {
               this.alert.error(
                 `${action.payload.email}, vuelva a intentarlo. Disculpe las molestias`
               );
@@ -36,6 +34,19 @@ export class AuthEffects {
 
             return of(AuthAction.LoginFiled());
           })
+        )
+      )
+    )
+  );
+
+  logOut$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthAction.LogOutBegin),
+      exhaustMap((action) =>
+        this.auth.logOut().pipe(
+          map((logout) => AuthAction.LogOutSuccess()),
+          catchError((error) => of(AuthAction.LogOutFiled())
+          )
         )
       )
     )

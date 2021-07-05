@@ -1,5 +1,8 @@
 <app-layout title="Empleado">
-  <app-employee-personal-info [employee]="employee"></app-employee-personal-info>
+  <app-employee-personal-info *ngIf="!isEditionMode" [employee]="employee" (edit)="goToPrincipalInfoEdition($event)">
+  </app-employee-personal-info>
+  <app-employee-personal-form *ngIf="isEditionMode" [employee]="employee" (edited)="managePrincipalInfoEdition($event)">
+  </app-employee-personal-form>
 
   <app-employee-category [categoryName]="'Proyectos'" [categoryList]="projects"
     [savedItems]="employee?.projects" (categoryChanges)="updateProjects($event)">

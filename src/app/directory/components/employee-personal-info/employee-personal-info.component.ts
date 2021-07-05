@@ -1,21 +1,22 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Employee } from '@models';
-import { APP_ROUTES } from '../../../core/constants/app-routes.constant';
 
 @Component({
   selector: 'app-employee-personal-info',
   templateUrl: './employee-personal-info.component.html',
   styleUrls: ['./employee-personal-info.component.scss']
 })
-export class EmployeePersonalInfoComponent implements OnInit {
+export class EmployeePersonalInfoComponent {
 
   @Input() employee!: Employee;
+  @Output() edit!: EventEmitter<boolean>;
 
-  readonly APP_ROUTES = APP_ROUTES;
-  
-  constructor() { }
+  constructor() {
+    this.edit = new EventEmitter();
+  }
 
-  ngOnInit(): void {
+  goToEdit(): void {
+    this.edit.emit(true);
   }
 
 }
