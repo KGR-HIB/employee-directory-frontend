@@ -1,7 +1,10 @@
 @import '_variables.scss';
 
-.edh-btn-primary {
-  color: $color-white;
+.mat-button.mat-orange {
+  color: $color-secondary;
+}
+
+.mat-raised-button.mat-orange, .mat-flat-button.mat-orange{
   background-color: $color-secondary;
-  border-color: $color-secondary;
+  color: white;
 }
