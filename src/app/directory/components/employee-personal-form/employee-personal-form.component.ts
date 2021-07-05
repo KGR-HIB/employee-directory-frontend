@@ -154,6 +154,7 @@ export class EmployeePersonalFormComponent implements OnInit {
       city: { name: controls.city.value },
       immediateChiefId: controls.chief.value.id,
       user: {
+        id: this.employee?.user?.id,
         email: controls.email.value,
         password: controls.password.value,
         roleId: 1
