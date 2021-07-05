@@ -10,6 +10,7 @@ import { EmployeeGenericFilterComponent } from './components/employee-generic-fi
 import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 import { EmployeePersonalFormComponent } from './components/employee-personal-form/employee-personal-form.component';
 import { EmployeePersonalInfoComponent } from './components/employee-personal-info/employee-personal-info.component';
+import { EmployeeCard } from './components/employee-card/employee-card.component';
 import { CreateEmployeeComponent } from './conatiners/create-employee/create-employee.component';
 import { EmployeeComponent } from './conatiners/employee/employee.component';
 import { EmployeesComponent } from './conatiners/employees/employees.component';
@@ -28,7 +29,8 @@ import { EmployeeFilterCategoryComponent } from './components/employee-filter-ca
     EmployeePersonalInfoComponent,
     EmployeeCategoryComponent,
     EmployeePersonalFormComponent,
-    EmployeeFilterCategoryComponent
+    EmployeeFilterCategoryComponent,
+    EmployeeCard
   ],
   imports: [
     CommonModule,

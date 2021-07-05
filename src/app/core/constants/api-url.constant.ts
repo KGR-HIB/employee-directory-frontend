@@ -1,7 +1,7 @@
 import { environment } from '../../../environments/environment';
 
 const BASE_PATH = `${environment.apiUrl}`;
-//TODO: 
+//TODO:
 export const MOCKED_PATH = `http://localhost:3000/employees`;
 
 export const CONTEXT_SERVICE = `/directoryServices`;
@@ -20,4 +20,8 @@ export const REST_CONTROLLER = {
   SKILL: 'skills',
   POSITION: 'positions',
   EMPLOYEE: 'employees',
+};
+
+export const EMPLOYEE_PATHS = {
+  PAGE: '/page'
 };
