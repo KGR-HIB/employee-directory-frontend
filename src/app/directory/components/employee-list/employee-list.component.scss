@@ -1,55 +1,5 @@
-.edh-list-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.edh-text-name {
-  font-size: 15px;
-  font-weight: 500;
-}
-
-.edh-text-job {
-  font-size: smaller;
-}
-
-.edh-text-contact {
-  font-size: smaller;
-}
-
-.edh-employee-card {
-  border-radius: 4px;
-  // max-width: 385px;
-  // max-height: 1000px;
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 0;
-
-  .mat-card-image {
-    margin: 0;
-    width: 10em;
-  }
-
-  .edh-employee-card-content {
-    display: flex;
-    justify-content: space-between;
-
-    & > * {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex: auto;
-      // max-width: 40%;
-
-      &:first-child {
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
-      }
-
-      &:last-child {
-        flex-direction: column;
-        align-items: start;
-      }
-    }
-  }
+.hbr-employee-list {
+  height: calc(100vh - 18.9rem);
+  overflow-y: auto;
+  overflow-x: hidden;
 }

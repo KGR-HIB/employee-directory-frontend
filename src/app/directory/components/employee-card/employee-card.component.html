@@ -1,0 +1,22 @@
+<div class="hbr-card">
+  <figure class="hbr-card__photo">
+    <img src="https://prium.github.io/falcon/v2.8.2/default/assets/img/team/3-thumb.png" alt="">
+  </figure>
+  <div class="hbr-card__content">
+    <a [routerLink]="['/employees', employee.id]">
+      <h3 class="m-0 lh-sm hbr-card__title">
+        {{ employee.name }}
+        <p class="m-0">{{ employee.lastName }}</p>
+      </h3>
+    </a>
+    <div class="hbr-card__dep wrap-delimiter">{{ employee.position.name }} - {{ employee.department.name }}</div>
+    <div class="d-flex align-items-center">
+      <mat-icon class="me-1 border-top border-dark border-2">email</mat-icon>
+      <address class="m-0 wrap-delimiter">{{ employee.user.email }}</address>
+    </div>
+    <div class="d-flex align-items-center">
+      <mat-icon class="me-1">phone</mat-icon>
+      <address class="m-0 wrap-delimiter">{{ employee.phone }}</address>
+    </div>
+  </div>
+</div>

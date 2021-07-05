@@ -1,10 +1,14 @@
+import { Position } from './position.model';
+import { Department } from './department.model';
+import { User } from './user.model';
+
 export interface SimpleEmployee {
-  employeeId: number;
+  id: number;
   name: string;
   lastName: string;
-  mail: string;
   phone: string;
-  departmentName: string;
-  positionName: string;
   photo: string;
+  department: Department;
+  position: Position;
+  user: User;
 }

@@ -1,28 +1,10 @@
-<div class="row">
-  <div class="col-xl-4 col-lg-6 col-xs-12" *ngFor="let item of employees">
-    <mat-card class="edh-employee-card">
-      <mat-card-content class="edh-employee-card-content">
-        <img mat-card-image src="error_path" appDefImg alt="Profile image">
-        <div class="m-2">
-          <div>
-            <span class="edh-title-color edh-text-name">{{ item.name }} {{ item.lastName }}</span>
-          </div>
 
-          <div>
-            <span class="edh-normal-label edh-text-job">{{ item.positionName }} - {{ item.departmentName }}</span>
-          </div>
-
-          <div class="edh-icon-label">
-            <i aria-hidden="true" class="material-icons-outlined edh-normal-label edh-text-contact me-2">mail</i>
-            <span class="edh-normal-label edh-text-contact">{{ item.mail }}</span>
-          </div>
-          <div class="edh-icon-label">
-            <i aria-hidden="true" class="material-icons-outlined edh-normal-label edh-text-contact me-2">call</i>
-            <span class="edh-normal-label edh-text-contact">{{ item.phone }}</span>
-          </div>
-
-        </div>
-      </mat-card-content>
-    </mat-card>
+<div class="card hbr-employee-list">
+  <div class="card-body p-2">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-6 col-xl-4 mb-3" *ngFor="let item of employees">
+        <app-employee-card [employee]="item"></app-employee-card>
+      </div>
+    </div>
   </div>
 </div>
