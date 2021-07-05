@@ -23,5 +23,8 @@ export const REST_CONTROLLER = {
 };
 
 export const EMPLOYEE_PATHS = {
-  PAGE: '/page'
+  PAGE: '/page',
+  UPDATE_PROJECTS: '/projects/add',
+  UPDATE_CERTIFICATIONS: '/certifications/add',
+  UPDATE_SKILLS: '/skills/add'
 };

@@ -16,4 +16,6 @@ export * from './simple-employee.model';
 export * from './skill.model';
 export * from './user.model';
 export * from './page.model';
-
+export * from './employee-projects.model';
+export * from './employee-certifications.model';
+export * from './employee-skills.model';

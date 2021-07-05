@@ -1,17 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Category, Certification, Employee, Project, Response, Skill } from '@models';
-import { CertificationService, EmployeeService, ProjectService, SkillService } from '@services';
-import { forkJoin } from 'rxjs';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import {
+  Category,
+  Certification,
+  Employee,
+  EmployeeCertifications,
+  EmployeeProjects,
+  EmployeeSkills,
+  Project,
+  Response,
+  Skill,
+} from "@models";
+import {
+  CertificationService,
+  EmployeeService,
+  ProjectService,
+  SkillService,
+} from "@services";
+import { forkJoin } from "rxjs";
 
 @Component({
-  selector: 'app-employee',
-  templateUrl: './employee.component.html',
-  styleUrls: ['./employee.component.scss']
+  selector: "app-employee",
+  templateUrl: "./employee.component.html",
+  styleUrls: ["./employee.component.scss"],
 })
 export class EmployeeComponent implements OnInit {
-
-  employee!: Employee
+  employee!: Employee;
   skills!: Skill[];
   projects!: Project[];
   certifications!: Certification[];
@@ -22,16 +36,19 @@ export class EmployeeComponent implements OnInit {
     private projectService: ProjectService,
     private certificationService: CertificationService,
     private employeeService: EmployeeService,
-    private activeRoute: ActivatedRoute,
-  ) { }
+    private activeRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.activeRoute.params.subscribe(params => this.fetchEmployeeSheet(params.id));
+    this.activeRoute.params.subscribe((params) =>
+      this.fetchEmployeeSheet(params.id)
+    );
     this.getCatalogs();
   }
 
   private fetchEmployeeSheet(id: number) {
-    this.employeeService.getEmployeeSheet(id)
+    this.employeeService
+      .getEmployeeSheet(id)
       .subscribe((response: Response<Employee>) => {
         this.employee = response.data;
         this.isEditionMode = false;
@@ -42,8 +59,8 @@ export class EmployeeComponent implements OnInit {
     forkJoin([
       this.skillService.findAll(),
       this.projectService.findAll(),
-      this.certificationService.findAll()
-    ]).subscribe(response => {
+      this.certificationService.findAll(),
+    ]).subscribe((response) => {
       if (response[0]?.data) {
         this.skills = response[0].data;
       }
@@ -56,19 +73,55 @@ export class EmployeeComponent implements OnInit {
     });
   }
 
+  /**
+   * Update project of an Employee
+   *
+   * @author bcueva
+   * @param projects List of Projects
+   */
   updateProjects(projects: Category[]): void {
-    // TODO: call service
-    console.log(projects);
+    const employeeProjets: EmployeeProjects = {
+      employeeId: this.employee.id,
+      projects
+    };
+    this.employeeService.updateProjects(employeeProjets)
+    .subscribe((response: Response<Project[]>) => {
+      this.employee.projects = response.data;
+    });
   }
 
+  /**
+   * Update certifications of an Employee
+   *
+   * @author bcueva
+   * @param certifications List of Certifications
+   */
   updateCertifications(certifications: Category[]): void {
-    // TODO: call service
-    console.log(certifications);
+    const employeeCertifications: EmployeeCertifications = {
+      employeeId: this.employee.id,
+      certifications
+    };
+    this.employeeService.updateCertifications(employeeCertifications)
+    .subscribe((response: Response<Certification[]>) => {
+      this.employee.certifications = response.data;
+    });
   }
 
+  /**
+   * Update skills of an Employee
+   *
+   * @author bcueva
+   * @param skills List of skills
+   */
   updateSkills(skills: Category[]): void {
-    // TODO: call service
-    console.log(skills);
+    const employeeSkills: EmployeeSkills = {
+      employeeId: this.employee.id,
+      skills
+    };
+    this.employeeService.updateSkills(employeeSkills)
+    .subscribe((response: Response<Skill[]>) => {
+      this.employee.skills = response.data;
+    });
   }
 
   goToPrincipalInfoEdition(edit: boolean): void {
@@ -81,5 +134,4 @@ export class EmployeeComponent implements OnInit {
       this.fetchEmployeeSheet(this.employee.id);
     }
   }
-
 }
