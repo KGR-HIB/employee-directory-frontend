@@ -39,8 +39,13 @@ export class EmployeeCategoryComponent implements OnInit {
       this.initialItems = this.savedItems.slice();
     } else {
       this.savedItems = [];
+      this.initialItems = [];
     }
-    
+
+  }
+
+  get hasSaveItems(): boolean {
+    return this.savedItems !== undefined && this.savedItems.length > 0;
   }
 
   add(event: MatChipInputEvent): void {
@@ -96,6 +101,7 @@ export class EmployeeCategoryComponent implements OnInit {
   }
 
   restoreItems(): void {
+    console.log('HOLAAA SE LLAMA');
     this.savedItems = this.initialItems.slice();
     this.isEditionMode = false;
   }

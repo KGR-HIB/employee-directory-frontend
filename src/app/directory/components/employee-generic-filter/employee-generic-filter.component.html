@@ -9,7 +9,10 @@
           placeholder="Buscar por nombres, apellidos o correo electrónico"
           (keyup)="keyUpInputHandler($event)"
         />
-        <mat-icon *ngIf="hasValue" class="hbr-search__clear" (click)="clickClearHandler()"
+        <mat-icon
+          *ngIf="hasValue"
+          class="hbr-search__clear"
+          (click)="clickClearHandler()"
           >clear</mat-icon
         >
         <button
@@ -29,8 +32,8 @@
         class="link-primary"
         [routerLink]=""
         (click)="clickAdvancedFilersHandler()"
-        >Filtros avanzados</a
-      >
+        >Filtros avanzados
+      </a>
     </div>
   </div>
 </div>
