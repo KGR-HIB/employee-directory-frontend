@@ -3,6 +3,10 @@
   flex-shrink: 0;
 }
 
+.hidden {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .hbr-employees__filters {
     position: absolute;

@@ -1,6 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { forkJoin } from "rxjs";
-
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import {
   Certification,
   City,
@@ -12,77 +10,27 @@ import {
   Skill,
 } from "@models";
 
-import {
-  CertificationService,
-  CityService,
-  DepartmentService,
-  PositionService,
-  ProjectService,
-  SkillService,
-} from "@services";
-
 @Component({
   selector: "app-employee-advance-filters",
   templateUrl: "./employee-advance-filters.component.html",
   styleUrls: ["./employee-advance-filters.component.scss"],
 })
-export class EmployeeAdvanceFiltersComponent implements OnInit {
+export class EmployeeAdvanceFiltersComponent {
+  @Input() filters!: EmployeeFilter;
+  @Input() positions!: Position[];
+  @Input() departments!: Department[];
+  @Input() projects!: Project[];
+  @Input() cities!: City[];
+  @Input() skills!: Skill[];
+  @Input() certifications!: Certification[];
+
   @Output() employeeFilter: EventEmitter<EmployeeFilter>;
   @Output() close: EventEmitter<void>;
-
-  positions!: Position[];
-  departments!: Department[];
-  projects!: Project[];
-  cities!: City[];
-  skills!: Skill[];
-  certifications!: Certification[];
-  @Input() filters!: EmployeeFilter;
   clearSelections = false;
 
-  constructor(
-    private certificationService: CertificationService,
-    private departmentService: DepartmentService,
-    private positionService: PositionService,
-    private projectService: ProjectService,
-    private skillService: SkillService,
-    private cityService: CityService
-  ) {
+  constructor() {
     this.employeeFilter = new EventEmitter();
     this.close = new EventEmitter();
-  }
-
-  ngOnInit(): void {
-    this.getCatalogs();
-  }
-
-  private getCatalogs(): void {
-    forkJoin([
-      this.cityService.findAll(),
-      this.positionService.findAll(),
-      this.departmentService.findAll(),
-      this.certificationService.findAll(),
-      this.projectService.findAll(),
-      this.skillService.findAll(),
-    ]).subscribe((response) => {
-      if (response[0]?.data) {
-        this.cities = response[0].data;
-      }
-      if (response[1]?.data) {
-        this.positions = response[1].data;
-      }
-      if (response[2]?.data) {
-        this.departments = response[2].data;
-      }
-      if (response[3]?.data) {
-        this.certifications = response[3].data;
-      }
-      if (response[4]?.data) {
-        this.projects = response[4].data;
-      }
-      if (response[5]?.data) {
-        this.skills = response[5].data;
-      }
-    });
   }
 
   filterByPosition(filter: Category[]): void {

@@ -18,7 +18,7 @@ import { API_URL, REST_CONTROLLER } from '../constants/api-url.constant';
 export class ProjectService extends HttpBaseService {
 
   constructor(http: HttpClient) {
-    super(http, `${API_URL}${REST_CONTROLLER.CITY}`);
+    super(http, `${API_URL}${REST_CONTROLLER.PROJECT}`);
   }
 
   /**

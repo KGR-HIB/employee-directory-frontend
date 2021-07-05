@@ -19,9 +19,15 @@
     <div class="container-fluid">
         <app-employee-list [employees]="employeesPage.data"></app-employee-list>
     </div>
-    <div class="hbr-employees__filters" *ngIf="showFilters">
+    <div class="hbr-employees__filters" [ngClass]="{'hidden': !showFilters}">
       <app-employee-advance-filters
+        [certifications]="certifications"
+        [cities]="cities"
+        [departments]="departments"
         [filters]="filters"
+        [positions]="positions"
+        [projects]="projects"
+        [skills]="skills"
         (employeeFilter)="searchByAdvanceFilters($event)"
         (close)="clickCloseAdvancedFilerHandler()"
       ></app-employee-advance-filters>
