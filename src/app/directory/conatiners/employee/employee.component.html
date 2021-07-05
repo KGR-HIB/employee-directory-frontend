@@ -1,18 +1,40 @@
 <app-layout title="Empleado">
-  <app-employee-personal-info *ngIf="!isEditionMode" [employee]="employee" (edit)="goToPrincipalInfoEdition($event)">
-  </app-employee-personal-info>
-  <app-employee-personal-form *ngIf="isEditionMode" [employee]="employee" (edited)="managePrincipalInfoEdition($event)">
-  </app-employee-personal-form>
+  <div *ngIf="employee">
+    <app-employee-personal-info
+      *ngIf="!isEditionMode"
+      [employee]="employee"
+      (edit)="goToPrincipalInfoEdition($event)"
+    >
+    </app-employee-personal-info>
+    <app-employee-personal-form
+      *ngIf="isEditionMode"
+      [employee]="employee"
+      (edited)="managePrincipalInfoEdition($event)"
+    >
+    </app-employee-personal-form>
 
-  <app-employee-category [categoryName]="'Proyectos'" [categoryList]="projects"
-    [savedItems]="employee?.projects" (categoryChanges)="updateProjects($event)">
-  </app-employee-category>
+    <app-employee-category
+      [categoryName]="'Proyectos'"
+      [categoryList]="projects"
+      [savedItems]="employee?.projects"
+      (categoryChanges)="updateProjects($event)"
+    >
+    </app-employee-category>
 
-  <app-employee-category [categoryName]="'Certificaciones'" [categoryList]="certifications"
-    [savedItems]="employee?.certifications" (categoryChanges)="updateCertifications($event)">
-  </app-employee-category>
+    <app-employee-category
+      [categoryName]="'Certificaciones'"
+      [categoryList]="certifications"
+      [savedItems]="employee?.certifications"
+      (categoryChanges)="updateCertifications($event)"
+    >
+    </app-employee-category>
 
-  <app-employee-category [categoryName]="'Tecnologías'" [categoryList]="skills"
-    [savedItems]="employee?.skills" (categoryChanges)="updateSkills($event)">
-  </app-employee-category>
+    <app-employee-category
+      [categoryName]="'Tecnologías'"
+      [categoryList]="skills"
+      [savedItems]="employee?.skills"
+      (categoryChanges)="updateSkills($event)"
+    >
+    </app-employee-category>
+  </div>
 </app-layout>
