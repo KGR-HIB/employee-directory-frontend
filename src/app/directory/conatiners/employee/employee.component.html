@@ -3,13 +3,14 @@
     <app-employee-personal-info
       *ngIf="!isEditionMode"
       [employee]="employee"
-      [editable]="isAdmin"
+      [editable]="isEditable"
       (edit)="goToPrincipalInfoEdition($event)"
     >
     </app-employee-personal-info>
     <app-employee-personal-form
       *ngIf="isEditionMode"
       [employee]="employee"
+      [isCurrentUserAdmin]="isCurrentUserAdmin"
       (edited)="managePrincipalInfoEdition($event)"
     >
     </app-employee-personal-form>
@@ -18,7 +19,7 @@
       [categoryName]="'Proyectos'"
       [categoryList]="projects"
       [savedItems]="employee?.projects"
-      [editable]="isAdmin"
+      [editable]="isEditable"
       (categoryChanges)="updateProjects($event)"
     >
     </app-employee-category>
@@ -27,7 +28,7 @@
       [categoryName]="'Certificaciones'"
       [categoryList]="certifications"
       [savedItems]="employee?.certifications"
-      [editable]="isAdmin"
+      [editable]="isEditable"
       (categoryChanges)="updateCertifications($event)"
     >
     </app-employee-category>
@@ -36,7 +37,7 @@
       [categoryName]="'Tecnologías'"
       [categoryList]="skills"
       [savedItems]="employee?.skills"
-      [editable]="isAdmin"
+      [editable]="isEditable"
       (categoryChanges)="updateSkills($event)"
     >
     </app-employee-category>
