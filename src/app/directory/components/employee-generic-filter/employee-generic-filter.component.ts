@@ -1,4 +1,8 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Output, forwardRef } from "@angular/core";
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+} from "@angular/forms";
 
 /**
  * Filter generic
@@ -10,20 +14,42 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
   selector: "app-employee-generic-filter",
   templateUrl: "./employee-generic-filter.component.html",
   styleUrls: ["./employee-generic-filter.component.scss"],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => EmployeeGenericFilterComponent),
+      multi: true
+    },
+  ]
 })
-export class EmployeeGenericFilterComponent {
-  @Input() query!: string;
-  @Output() clickSearch: EventEmitter<string> = new EventEmitter();
+export class EmployeeGenericFilterComponent implements ControlValueAccessor {
+  @Output() search: EventEmitter<string> = new EventEmitter();
   @Output() clickAdvancedFilters: EventEmitter<void> = new EventEmitter();
+
+  value!: string;
+  /** Event handler when change */
+  onChange: any = () => {}
+  /** Event handler when touched */
+  onTouch: any = () => {}
 
   constructor() {}
 
   get hasValue(): boolean {
-    return this.query.length > 0;
+    return this.value !== null && this.value.length > 0;
+  }
+
+  writeValue(obj: any): void {
+    this.value = obj;
+  }
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouch = fn;
   }
 
   clickSearchHandler(): void {
-    this.clickSearch.emit(this.query);
+    this.search.emit(this.value);
   }
 
   clickAdvancedFilersHandler(): void {
@@ -31,13 +57,14 @@ export class EmployeeGenericFilterComponent {
   }
 
   clickClearHandler(): void {
-    this.query = "";
-    this.clickSearch.emit(this.query);
+    this.value = "";
+    this.onChange(this.value);
+    this.search.emit(this.value);
   }
 
   keyUpInputHandler(event: any): void {
     if (event.keyCode === 13) {
-      this.clickSearch.emit(this.query);
+      this.search.emit(this.value);
     }
   }
 }

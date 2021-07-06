@@ -73,7 +73,7 @@ export class EmployeesComponent implements OnInit {
     this.getCatalogs();
   }
 
-  onChangePage(event: any): void {
+  onChangePage(): void {
     this.seachEmployees();
   }
 
@@ -81,8 +81,11 @@ export class EmployeesComponent implements OnInit {
     this.filters = filters;
   }
 
-  clickSearchHandler(query: string): void {
-    this.query = query;
+  clickSearchHandler(): void {
+    this.seachEmployees();
+  }
+
+  clickSearchAdvancedFilterHandler() {
     this.seachEmployees();
   }
 

@@ -26,11 +26,13 @@ export class EmployeeAdvanceFiltersComponent {
 
   @Output() employeeFilter: EventEmitter<EmployeeFilter>;
   @Output() close: EventEmitter<void>;
+  @Output() search: EventEmitter<void>;
   clearSelections = false;
 
   constructor() {
     this.employeeFilter = new EventEmitter();
     this.close = new EventEmitter();
+    this.search = new EventEmitter();
   }
 
   filterByPosition(filter: Category[]): void {
@@ -81,5 +83,9 @@ export class EmployeeAdvanceFiltersComponent {
 
   closeAdvanceFilters(): void {
     this.close.emit();
+  }
+
+  clickSearchHandler(): void {
+    this.search.emit();
   }
 }

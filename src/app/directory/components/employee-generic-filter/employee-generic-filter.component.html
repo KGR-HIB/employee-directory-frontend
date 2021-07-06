@@ -5,7 +5,8 @@
         <input
           type="text"
           class="form-control shadow-none pe-5"
-          [(ngModel)]="query"
+          [(ngModel)]="value"
+          (ngModelChange)="onChange($event)"
           placeholder="Buscar por nombres, apellidos o correo electrónico"
           (keyup)="keyUpInputHandler($event)"
         />
