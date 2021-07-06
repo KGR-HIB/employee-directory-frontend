@@ -20,6 +20,7 @@ export const REST_CONTROLLER = {
   SKILL: 'skills',
   POSITION: 'positions',
   EMPLOYEE: 'employees',
+  ROLE: 'roles'
 };
 
 export const EMPLOYEE_PATHS = {

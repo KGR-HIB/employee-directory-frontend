@@ -1,5 +1,3 @@
-import { SafeResourceUrl} from '@angular/platform-browser';
-
 const IMAGE_NAME = 'logo.png';
 const CONTENT_TYPE_PNG = 'image/png';
 

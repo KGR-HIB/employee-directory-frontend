@@ -5,8 +5,8 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { APP_ROUTES, VALIDATIONS } from '@constants';
-import { City, Department, Employee, EmployeeManage, Position, SimpleEmployee } from '@models';
-import { CityService, DepartmentService, EmployeeService, PositionService } from '@services';
+import { City, Department, Employee, EmployeeManage, Position, SimpleEmployee, Role } from '@models';
+import { CityService, DepartmentService, EmployeeService, PositionService, RoleService } from '@services';
 import { forkJoin, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ValidationUtils } from '../../../share/validation.util';
@@ -34,6 +34,7 @@ export class EmployeePersonalFormComponent implements OnInit {
   markRequired!: boolean;
   enablePassword = false;
   photo!: File;
+  roles!: Role[];
 
   readonly APP_ROUTES = APP_ROUTES;
 
@@ -45,7 +46,8 @@ export class EmployeePersonalFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private location: Location,
     private router: Router,
-    private alert: ToastrService
+    private alert: ToastrService,
+    private roleService: RoleService
   ) {
     this.edited = new EventEmitter();
   }
@@ -87,6 +89,9 @@ export class EmployeePersonalFormComponent implements OnInit {
       city: [null, Validators.compose([
         Validators.required
       ])],
+      role: [null, Validators.compose([
+        Validators.required
+      ])],
       chief: [null, null],
     });
     this.fillExistingEmployeeData();
@@ -104,6 +109,7 @@ export class EmployeePersonalFormComponent implements OnInit {
       this.formGroup.controls.department.setValue(this.employee.department.name);
       this.formGroup.controls.position.setValue(this.employee.position.name);
       this.formGroup.controls.chief.setValue(this.employee.immediateChief);
+      this.formGroup.controls.role.setValue(this.employee.user.roleId);
       this.photo = await ImageUtil.base64ToFile(`data:image/png;base64,${this.employee.photo}`);
     }
   }
@@ -190,7 +196,7 @@ export class EmployeePersonalFormComponent implements OnInit {
         id: this.employee?.user?.id,
         email: controls.email.value,
         password: controls.password.value,
-        roleId: 1
+        roleId: controls.role.value
       }
     }
     this.employeeService.createEmployeeWithPhoto(data, this.photo).subscribe(response => {
@@ -226,6 +232,7 @@ export class EmployeePersonalFormComponent implements OnInit {
       this.cityService.findAll(),
       this.positionService.findAll(),
       this.departmentService.findAll(),
+      this.roleService.findAll()
     ]).subscribe((response) => {
       if (response[0]?.data) {
         this.cities = response[0].data;
@@ -238,6 +245,10 @@ export class EmployeePersonalFormComponent implements OnInit {
       if (response[2]?.data) {
         this.departments = response[2].data;
         this.autocDepartmentListener();
+      }
+
+      if (response[3]?.data) {
+        this.roles = response[3].data;
       }
     });
   }
