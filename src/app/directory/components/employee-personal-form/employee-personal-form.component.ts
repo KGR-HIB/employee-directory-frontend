@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
 import { APP_ROUTES, VALIDATIONS } from '@constants';
-import { City, Department, Employee, EmployeeManage, Position, SimpleEmployee, Role } from '@models';
+import { City, Department, Employee, EmployeeManage, Position, Role, SimpleEmployee } from '@models';
 import { CityService, DepartmentService, EmployeeService, PositionService, RoleService } from '@services';
 import { ImageUtil } from '@share/util/image.util';
 import { ToastrService } from 'ngx-toastr';
@@ -20,6 +20,7 @@ import { ValidationUtils } from '../../../share/validation.util';
 export class EmployeePersonalFormComponent implements OnInit {
 
   @Input() employee!: Employee;
+  @Input() isCurrentUserAdmin!: boolean;
   @Output() edited!: EventEmitter<boolean>;
 
   formGroup!: FormGroup;

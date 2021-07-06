@@ -9,7 +9,8 @@ import {
   EmployeeSkills,
   Project,
   Response,
-  Skill
+  Skill,
+  User
 } from "@models";
 import {
   CertificationService,
@@ -32,7 +33,9 @@ export class EmployeeComponent implements OnInit {
   projects!: Project[];
   certifications!: Certification[];
   isEditionMode!: boolean;
-  isAdmin!: boolean;
+  isCurrentUserAdmin!: boolean;
+  currentUser!: User | null;
+  isEditable!: boolean;
 
   constructor(
     private skillService: SkillService,
@@ -42,7 +45,8 @@ export class EmployeeComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private auth: AuthService
   ) {
-    this.isAdmin = this.auth.isAdmin();
+    this.isCurrentUserAdmin = this.auth.isAdmin();
+    this.currentUser = this.auth.currentUserValue;
   }
 
   ngOnInit(): void {
@@ -58,7 +62,12 @@ export class EmployeeComponent implements OnInit {
       .subscribe((response: Response<Employee>) => {
         this.employee = response.data;
         this.isEditionMode = false;
+        this.isEditable = this.userCanEdit();
       });
+  }
+
+  userCanEdit(): boolean {
+    return this.isCurrentUserAdmin || this.currentUser?.id === this.employee?.user?.id;
   }
 
   getCatalogs(): void {

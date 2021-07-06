@@ -20,7 +20,10 @@
           <div class="row mt-3">
 
             <div class="col-md-6 col-sm-12">
-              <h2 class="edh-title-color">{{ employee.name }} {{ employee.lastName }}</h2>
+              <h2 class="edh-title-color" style="margin-bottom: 0">{{ employee.name }} {{ employee.lastName }}</h2>
+              <div *ngIf="isEmployeeSystemAdmin" class="mb-2">
+                <span class="badge bg-primary">Administrador del sistema</span>
+              </div>
             </div>
 
             <div class="col-md-6 col-sm-12 pb-3">
