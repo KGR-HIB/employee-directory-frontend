@@ -5,7 +5,7 @@
         <div>
           <h2 class="edh-title-color">{{ categoryName }}</h2>
         </div>
-        <div class="edh-card-actions" *ngIf="!isEditionMode">
+        <div class="edh-card-actions" *ngIf="!isEditionMode && editable">
           <button
             mat-mini-fab
             color="primary"
@@ -86,12 +86,13 @@
           </mat-form-field>
         </div>
         <div class="col-12" *ngIf="!hasSaveItems && !isEditionMode">
-          <a
+          <a *ngIf="editable"
             class="link-primary"
             [routerLink]=""
             (click)="isEditionMode = !isEditionMode"
             >Agregar {{ categoryName }}
           </a>
+          <span *ngIf="!editable">No tiene asignación de {{ categoryName }}</span>
         </div>
       </div>
     </mat-card-content>

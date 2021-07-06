@@ -2,7 +2,7 @@
 
   <mat-card class="example-card">
     <mat-card-header>
-      <div class="edh-card-actions">
+      <div class="edh-card-actions" *ngIf="editable">
         <button mat-mini-fab color="primary" aria-label="Edit profile" (click)="goToEdit()">
           <mat-icon>mode_edit</mat-icon>
         </button>

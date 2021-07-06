@@ -153,8 +153,10 @@
                   </mat-error>
                 </mat-form-field>
               </div>
-              <div class="col-md-6 col-sm-12">
-
+              <div class="col-md-6 col-sm-12" *ngIf="employee">
+                <mat-slide-toggle (change)="setPasswordState($event)" [(ngModel)]="enablePassword" [ngModelOptions]="{standalone: true}">
+                  Cambiar contraseña
+                </mat-slide-toggle>
               </div>
             </div>
 
@@ -164,8 +166,6 @@
       <mat-card-actions>
         <div class="row m-3">
           <div class="col-12 text-end">
-            <mat-progress-bar [style.visibility]="loading ? 'visible' : 'hidden'" mode="query"></mat-progress-bar>
-
             <button type="reset" mat-stroked-button class="me-2" (click)="cancel()">
               Cancelar
             </button>

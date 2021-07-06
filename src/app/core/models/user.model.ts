@@ -1,4 +1,5 @@
 import { Role } from './role.model';
+import { UserEmployee } from './user-employee.model';
 
 export interface User {
   id?: number;
@@ -9,4 +10,5 @@ export interface User {
   loginFirstTime?: boolean;
   role?: Role;
   roleId?: number;
+  employe?: UserEmployee;
 }

@@ -1,8 +1,9 @@
-<app-layout title="Empleado">
+<app-layout [title]="'Empleado'">
   <div *ngIf="employee">
     <app-employee-personal-info
       *ngIf="!isEditionMode"
       [employee]="employee"
+      [editable]="isAdmin"
       (edit)="goToPrincipalInfoEdition($event)"
     >
     </app-employee-personal-info>
@@ -17,6 +18,7 @@
       [categoryName]="'Proyectos'"
       [categoryList]="projects"
       [savedItems]="employee?.projects"
+      [editable]="isAdmin"
       (categoryChanges)="updateProjects($event)"
     >
     </app-employee-category>
@@ -25,6 +27,7 @@
       [categoryName]="'Certificaciones'"
       [categoryList]="certifications"
       [savedItems]="employee?.certifications"
+      [editable]="isAdmin"
       (categoryChanges)="updateCertifications($event)"
     >
     </app-employee-category>
@@ -33,6 +36,7 @@
       [categoryName]="'Tecnologías'"
       [categoryList]="skills"
       [savedItems]="employee?.skills"
+      [editable]="isAdmin"
       (categoryChanges)="updateSkills($event)"
     >
     </app-employee-category>

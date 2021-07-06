@@ -9,15 +9,19 @@ import {
   EmployeeSkills,
   Project,
   Response,
-  Skill,
+  Skill
 } from "@models";
+import { Store } from '@ngrx/store';
 import {
   CertificationService,
   EmployeeService,
   ProjectService,
-  SkillService,
+  SkillService
 } from "@services";
-import { forkJoin } from "rxjs";
+import { forkJoin, Observable } from 'rxjs';
+import { CONSTANTS } from '../../../core/constants/common.constant';
+import { User } from '../../../core/models/user.model';
+import { GlobalState } from '../../../store/app.states';
 
 @Component({
   selector: "app-employee",
@@ -25,19 +29,30 @@ import { forkJoin } from "rxjs";
   styleUrls: ["./employee.component.scss"],
 })
 export class EmployeeComponent implements OnInit {
+  
   employee!: Employee;
   skills!: Skill[];
   projects!: Project[];
   certifications!: Certification[];
   isEditionMode!: boolean;
+  isAdmin!: boolean;
+  user$: Observable<User | null>;
+  user!: User | null;
 
   constructor(
     private skillService: SkillService,
     private projectService: ProjectService,
     private certificationService: CertificationService,
     private employeeService: EmployeeService,
-    private activeRoute: ActivatedRoute
-  ) {}
+    private activeRoute: ActivatedRoute,
+    private store: Store<GlobalState>
+  ) {
+    this.user$ = this.store.select((store) => store.authentication.currentUser);
+    this.user$.subscribe(currentUser => this.user = currentUser);
+    if (this.user && this.user.role?.code === CONSTANTS.ROLES.ADMIN) {
+      this.isAdmin = true;
+    }
+  }
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe((params) =>
