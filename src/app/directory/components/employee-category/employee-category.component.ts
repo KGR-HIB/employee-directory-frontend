@@ -101,8 +101,7 @@ export class EmployeeCategoryComponent implements OnInit {
   }
 
   restoreItems(): void {
-    console.log('HOLAAA SE LLAMA');
-    this.savedItems = this.initialItems.slice();
+    this.savedItems = this.initialItems ? this.initialItems.slice() : [];
     this.isEditionMode = false;
   }
 
