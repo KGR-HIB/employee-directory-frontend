@@ -37,3 +37,11 @@
   background-color: #e74c3c;
   color: white;
 }
+
+.mat-slide-toggle.mat-blue.mat-checked .mat-slide-toggle-thumb {
+  background-color: $color-primary;
+}
+
+.mat-slide-toggle.mat-blue.mat-checked .mat-slide-toggle-bar {
+  background-color: lighten($color-primary, 40%);
+}

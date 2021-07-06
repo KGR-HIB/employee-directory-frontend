@@ -26,6 +26,12 @@
                   <mat-error *ngIf="isControlHasError('name','required')">
                     <strong>Campo requerido</strong>
                   </mat-error>
+                  <mat-error *ngIf="isControlHasError('name','maxlength')">
+                    <strong>Debe ser máximo de 120 caracteres</strong>
+                  </mat-error>
+                  <mat-error *ngIf="isControlHasError('name','pattern')">
+                    <strong>Debe contener solo letras</strong>
+                  </mat-error>
                 </mat-form-field>
               </div>
               <div class="col-md-6 col-sm-12">
@@ -34,6 +40,12 @@
                   <input matInput formControlName="lastName" placeholder="Ingrese los Apellidos">
                   <mat-error *ngIf="isControlHasError('lastName','required')">
                     <strong>Campo requerido</strong>
+                  </mat-error>
+                  <mat-error *ngIf="isControlHasError('lastName','maxlength')">
+                    <strong>Debe ser máximo de 120 caracteres</strong>
+                  </mat-error>
+                  <mat-error *ngIf="isControlHasError('lastName','pattern')">
+                    <strong>Debe contener solo letras</strong>
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -51,6 +63,9 @@
                   <mat-error *ngIf="isControlHasError('email','pattern')">
                     <strong>Correo inválido</strong>
                   </mat-error>
+                  <mat-error *ngIf="isControlHasError('email','maxlength')">
+                    <strong>Debe ser máximo de 120 caracteres</strong>
+                  </mat-error>
                 </mat-form-field>
               </div>
               <div class="col-md-6 col-sm-12">
@@ -60,6 +75,12 @@
                   <mat-icon matSuffix>call</mat-icon>
                   <mat-error *ngIf="isControlHasError('phone','required')">
                     <strong>Campo requerido</strong>
+                  </mat-error>
+                  <mat-error *ngIf="isControlHasError('phone','maxlength')">
+                    <strong>Debe ser máximo de 20 dígitos</strong>
+                  </mat-error>
+                  <mat-error *ngIf="isControlHasError('phone','pattern')">
+                    <strong>Solo debe contener números</strong>
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -166,7 +187,7 @@
                 </mat-form-field>
               </div>
               <div class="col-md-6 col-sm-12" *ngIf="employee">
-                <mat-slide-toggle (change)="setPasswordState($event)" [(ngModel)]="enablePassword" [ngModelOptions]="{standalone: true}">
+                <mat-slide-toggle (change)="setPasswordState($event)" [(ngModel)]="enablePassword" [ngModelOptions]="{standalone: true}" color="blue">
                   Cambiar contraseña
                 </mat-slide-toggle>
               </div>
