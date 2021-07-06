@@ -30,8 +30,7 @@ export class DropdownChiefComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.initialValue) {
-      // TODO: find by id
-      this.employeeService.listChiefEmployees(this.initialValue.name).pipe(
+      this.employeeService.listChiefEmployees(String(this.initialValue.id)).pipe(
         finalize(() => this.searching = false)
       ).subscribe(response => {
         this.filteredEmployees.next(response);

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { API_URL, EMPLOYEE_PATHS, REST_CONTROLLER } from "@constants";
 import {
@@ -33,8 +33,7 @@ export class EmployeeService extends HttpBaseService {
    * @returns
    */
   listChiefEmployees(queryFilter: string | null): Observable<SimpleEmployee[]> {
-    const param =
-      queryFilter && queryFilter.trim() !== "" ? `?query=${queryFilter}` : "";
+    const param = queryFilter && queryFilter.trim() !== "" ? `?query=${queryFilter}` : "";
     return this.get(param).pipe(map((response) => response.data));
   }
 
@@ -60,7 +59,11 @@ export class EmployeeService extends HttpBaseService {
     const formData = new FormData();
     formData.append('file', photo);
     formData.append('data', JSON.stringify(employee));
-    return this.post(`/createOrUpdate`, formData);
+    return this.post(`/createOrUpdate`, formData, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.auth.currentUserValue?.accessToken}`
+      })
+    });
   }
 
   /**
