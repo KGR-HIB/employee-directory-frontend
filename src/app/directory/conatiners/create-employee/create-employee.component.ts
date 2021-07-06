@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { APP_ROUTES, CONSTANTS } from '@constants';
+import { APP_ROUTES } from '@constants';
 import { City, Response } from '@models';
-import { Store } from '@ngrx/store';
 import { CityService } from '@services';
-import { Observable } from 'rxjs';
-import { User } from '../../../core/models/user.model';
-import { GlobalState } from '../../../store/app.states';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-create-employee',
@@ -15,18 +12,13 @@ import { GlobalState } from '../../../store/app.states';
 })
 export class CreateEmployeeComponent implements OnInit {
 
-  user$: Observable<User | null>;
-  user!: User | null;
-
   constructor(
     private router: Router,
     private cityService: CityService,
-    private store: Store<GlobalState>
+    private auth: AuthService
   ) {
-    this.user$ = this.store.select((store) => store.authentication.currentUser);
-    this.user$.subscribe(currentUser => this.user = currentUser);
-    if (!this.user || this.user.role?.code !== CONSTANTS.ROLES.ADMIN) {
-      this.router.navigateByUrl(APP_ROUTES.LOGIN).then();
+    if (!this.auth.isAdmin()) {
+      this.auth.logOut().subscribe(() => this.router.navigateByUrl(APP_ROUTES.LOGIN).then());
     }
   }
 

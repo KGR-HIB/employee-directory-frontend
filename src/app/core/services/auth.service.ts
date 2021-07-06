@@ -4,21 +4,30 @@ import { API_URLS } from '@constants';
 import { Authentication, Response, User } from '@models';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { CONSTANTS } from '../constants/common.constant';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  private currentUserSubject: BehaviorSubject<User | null>;
+  public currentUser: Observable<User | null>;
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<User>(
+    this.currentUserSubject = new BehaviorSubject<User | null>(
       JSON.parse(String(localStorage.getItem('currentUser')))
     );
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue(): User {
+  public get currentUserValue(): User | null {
     return this.currentUserSubject.value;
+  }
+
+  isAdmin(): boolean {
+    const currentUser = this.currentUserValue;
+    if (currentUser && currentUser.role?.code === CONSTANTS.ROLES.ADMIN) {
+      return true;
+    }
+    return false;
   }
 
   login(payload: Authentication): Observable<User> {
@@ -31,7 +40,12 @@ export class AuthService {
   }
 
   logOut(): Observable<Response<any>> {
-    return this.http.post<Response<any>>(`${API_URLS.LOGOUT}`, {});
+    return this.http.post<Response<any>>(`${API_URLS.LOGOUT}`, {}).pipe(
+      map((response) => {
+        this.currentUserSubject.next(null);
+        return response;
+      })
+    );
   }
 
 }

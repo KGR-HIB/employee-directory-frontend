@@ -11,17 +11,14 @@ import {
   Response,
   Skill
 } from "@models";
-import { Store } from '@ngrx/store';
 import {
   CertificationService,
   EmployeeService,
   ProjectService,
   SkillService
 } from "@services";
-import { forkJoin, Observable } from 'rxjs';
-import { CONSTANTS } from '../../../core/constants/common.constant';
-import { User } from '../../../core/models/user.model';
-import { GlobalState } from '../../../store/app.states';
+import { forkJoin } from 'rxjs';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: "app-employee",
@@ -36,8 +33,6 @@ export class EmployeeComponent implements OnInit {
   certifications!: Certification[];
   isEditionMode!: boolean;
   isAdmin!: boolean;
-  user$: Observable<User | null>;
-  user!: User | null;
 
   constructor(
     private skillService: SkillService,
@@ -45,13 +40,9 @@ export class EmployeeComponent implements OnInit {
     private certificationService: CertificationService,
     private employeeService: EmployeeService,
     private activeRoute: ActivatedRoute,
-    private store: Store<GlobalState>
+    private auth: AuthService
   ) {
-    this.user$ = this.store.select((store) => store.authentication.currentUser);
-    this.user$.subscribe(currentUser => this.user = currentUser);
-    if (this.user && this.user.role?.code === CONSTANTS.ROLES.ADMIN) {
-      this.isAdmin = true;
-    }
+    this.isAdmin = this.auth.isAdmin();
   }
 
   ngOnInit(): void {

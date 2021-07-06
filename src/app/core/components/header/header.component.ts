@@ -1,10 +1,10 @@
 import { AuthAction } from "@actions";
 import { Component } from '@angular/core';
-import { APP_ROUTES, CONSTANTS } from '@constants';
-import { User } from "@models";
+import { APP_ROUTES } from '@constants';
 import { Store } from "@ngrx/store";
 import { GlobalState } from "@store";
-import { Observable } from "rxjs";
+import { User } from '../../models/user.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: "app-header",
@@ -13,20 +13,17 @@ import { Observable } from "rxjs";
 })
 export class HeaderComponent {
 
-  user$: Observable<User | null>;
-  user!: User | null;
   isAdmin!: boolean;
+  user!: User | null;
 
   readonly APP_ROUTES = APP_ROUTES;
 
   constructor(
     private store: Store<GlobalState>,
+    private auth: AuthService
   ) {
-    this.user$ = this.store.select((store) => store.authentication.currentUser);
-    this.user$.subscribe(currentUser => this.user = currentUser);
-    if (this.user && this.user.role?.code === CONSTANTS.ROLES.ADMIN) {
-      this.isAdmin = true;
-    }
+    this.isAdmin = this.auth.isAdmin();
+    this.user = this.auth.currentUserValue;
   }
 
   signOut = (): void => {
