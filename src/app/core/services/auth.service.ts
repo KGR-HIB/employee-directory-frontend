@@ -23,7 +23,10 @@ export class AuthService {
 
   login(payload: Authentication): Observable<User> {
     return this.http.post<Response<User>>(API_URLS.LOGIN, payload).pipe(
-      map((response) => response.data)
+      map((response) => {
+        this.currentUserSubject.next(response.data);
+        return response.data;
+      })
     );
   }
 
