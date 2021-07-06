@@ -70,17 +70,17 @@ export class EmployeePersonalFormComponent implements OnInit {
       email: [null, Validators.compose([
         Validators.required,
         Validators.pattern(VALIDATIONS.EMAIL_REGEX),
-        Validators.maxLength(120)
+        Validators.maxLength(60)
       ])],
       password: [null, null],
       name: [null, Validators.compose([
         Validators.required,
-        Validators.maxLength(120),
+        Validators.maxLength(60),
         Validators.pattern(VALIDATIONS.ONLY_LETTERS_REGEX)
       ])],
       lastName: [null, Validators.compose([
         Validators.required,
-        Validators.maxLength(120),
+        Validators.maxLength(60),
         Validators.pattern(VALIDATIONS.ONLY_LETTERS_REGEX)
       ])],
       phone: [null, Validators.compose([
