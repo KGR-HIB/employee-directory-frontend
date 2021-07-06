@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
-import { API_URL, REST_CONTROLLER, EMPLOYEE_PATHS } from "@constants";
+import { API_URL, EMPLOYEE_PATHS, REST_CONTROLLER } from "@constants";
 import {
   Certification,
   Employee,
@@ -8,18 +8,15 @@ import {
   EmployeeFilter,
   EmployeeManage,
   EmployeeProjects,
-  EmployeeSkills,
-  Response,
-  Page,
-  Project,
-  SimpleEmployee,
+  EmployeeSkills, Page,
+  Project, Response, SimpleEmployee,
   Skill
 } from "@models";
+import { Pagination } from "@share/models/pagination.model";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { HttpBaseService } from "./http-base.service";
-import { Pagination } from "@share/models/pagination.model";
 import { AuthService } from './auth.service';
+import { HttpBaseService } from "./http-base.service";
 
 @Injectable({
   providedIn: "root",
@@ -63,11 +60,7 @@ export class EmployeeService extends HttpBaseService {
     const formData = new FormData();
     formData.append('file', photo);
     formData.append('data', JSON.stringify(employee));
-    return this.post(`/createOrUpdate`, formData, {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.auth.currentUserValue.accessToken}`
-      })
-    });
+    return this.post(`/createOrUpdate`, formData);
   }
 
   /**
