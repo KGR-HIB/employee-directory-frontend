@@ -1,10 +1,10 @@
 import { AuthAction } from "@actions";
 import { Component } from '@angular/core';
+import { APP_ROUTES, CONSTANTS } from '@constants';
 import { User } from "@models";
 import { Store } from "@ngrx/store";
 import { GlobalState } from "@store";
 import { Observable } from "rxjs";
-import { CONSTANTS } from '../../constants/common.constant';
 
 @Component({
   selector: "app-header",
@@ -16,6 +16,8 @@ export class HeaderComponent {
   user$: Observable<User | null>;
   user!: User | null;
   isAdmin!: boolean;
+
+  readonly APP_ROUTES = APP_ROUTES;
 
   constructor(
     private store: Store<GlobalState>,

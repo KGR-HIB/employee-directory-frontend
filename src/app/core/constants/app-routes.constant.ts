@@ -1,6 +1,6 @@
 export const APP_ROUTES = {
   LOGIN: 'login',
   EMPLOYEES: 'employees',
-  EMPLOYEE: 'employees',
-  EMPLOYEE_CREATION: 'employee/create',
+  EMPLOYEE: 'employee',
+  EMPLOYEE_CREATION: 'create/employee',
 }
