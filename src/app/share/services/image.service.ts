@@ -8,7 +8,7 @@ export class ImageService {
 
   constructor(private domSanitizer: DomSanitizer) {}
 
-  base64ToResourceUrl(image: string): SafeResourceUrl | string {
+  base64ToResourceUrl(image: string | undefined): SafeResourceUrl | string {
     if (image) {
       return this.domSanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64,${image}`);
     }
