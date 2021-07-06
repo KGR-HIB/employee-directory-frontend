@@ -28,8 +28,12 @@
         </div>
       </a>
       <div class="dropdown-menu dropdown-menu-end">
-        <span style="font-size: smaller; font-weight: 500; margin: 10px;">{{ user?.email }}</span>
-        <div class="bg-white">
+        <div>
+          <span class="edh-user-name">
+            {{ user?.employe?.name }} {{ user?.employe?.lastName }}
+          </span>
+        </div>
+        <div class="bg-white edh-separator">
           <a href="" class="dropdown-item" (click)="signOut()">Cerrar sesión</a>
         </div>
       </div>
