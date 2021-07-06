@@ -87,6 +87,7 @@ export class EmployeePersonalFormComponent implements OnInit {
       this.formGroup.controls.name.setValue(this.employee.name);
       this.formGroup.controls.lastName.setValue(this.employee.lastName);
       this.formGroup.controls.email.setValue(this.employee?.user?.email);
+      this.formGroup.controls.email.disable();
       this.formGroup.controls.phone.setValue(this.employee.phone);
       this.formGroup.controls.city.setValue(this.employee.city.name);
       this.formGroup.controls.department.setValue(this.employee.department.name);
