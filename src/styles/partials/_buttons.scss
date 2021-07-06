@@ -4,7 +4,36 @@
   color: $color-secondary;
 }
 
-.mat-raised-button.mat-orange, .mat-flat-button.mat-orange{
+.mat-raised-button.mat-orange,
+.mat-flat-button.mat-orange,
+.mat-mini-fab.mat-orange {
   background-color: $color-secondary;
+  color: white;
+}
+
+.mat-button.mat-blue {
+  color: $color-primary;
+}
+
+.mat-raised-button.mat-blue,
+.mat-flat-button.mat-blue,
+.mat-mini-fab.mat-blue {
+  background-color: $color-primary;
+  color: white;
+}
+
+.mat-chip.mat-standard-chip.mat-lightblue {
+  background-color: $color-alternative;
+  color: white;
+}
+
+.mat-button.mat-red {
+  color: #e74c3c;
+}
+
+.mat-raised-button.mat-red,
+.mat-flat-button.mat-red,
+.mat-mini-fab.mat-red {
+  background-color: #e74c3c;
   color: white;
 }
