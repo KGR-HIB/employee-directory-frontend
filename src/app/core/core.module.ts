@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 import { UserService } from './services/user.service';
 import { CityService } from './services/city.service';
@@ -22,7 +23,8 @@ import { LayoutComponent } from './components/layout/layout.component';
     LayoutComponent
   ],
   imports: [
-    RouterModule
+    RouterModule,
+    MatIconModule
   ],
   exports: [
     LayoutComponent
