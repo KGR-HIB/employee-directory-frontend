@@ -9,6 +9,7 @@ import { CropperDialogComponent } from './components/load-image/cropper-dialog/c
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { LoadImageComponent } from './components/load-image/load-image.component';
 import { DefaultImgOnErrorDirective } from './directives/default-img-onerror.directive';
+import { ImageService } from './services/image.service';
 
 @NgModule({
   declarations: [
@@ -31,5 +32,8 @@ import { DefaultImgOnErrorDirective } from './directives/default-img-onerror.dir
     PaginatorComponent
   ],
   entryComponents: [CropperDialogComponent],
+  providers: [
+    ImageService
+  ]
 })
 export class ShareModule { }

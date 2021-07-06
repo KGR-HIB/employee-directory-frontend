@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CropperDialogComponent } from './cropper-dialog/cropper-dialog.component';
 
 const PROFILE_IMAGE_LOGO = '../../assets/media/user/user.png';
@@ -12,7 +13,7 @@ const PROFILE_IMAGE_LOGO = '../../assets/media/user/user.png';
 })
 export class LoadImageComponent implements OnInit, OnChanges {
 
-  @Input() currentImage!: string;
+  @Input() currentImage!: string | null;
   @Input() refresh!: number;
   @Output() loadedFileImage: EventEmitter<File>;
 
@@ -24,7 +25,7 @@ export class LoadImageComponent implements OnInit, OnChanges {
   imageChangedEvent: any;
   cropperImageModal: any;
 
-  constructor(private dialog: MatDialog) {
+  constructor(private dialog: MatDialog, private domSanitizer: DomSanitizer) {
     this.loadedFileImage = new EventEmitter();
   }
 
@@ -46,6 +47,13 @@ export class LoadImageComponent implements OnInit, OnChanges {
     }
   }
 
+  get photo(): SafeResourceUrl | string {
+    if (this.image !== PROFILE_IMAGE_LOGO ) {
+      return this.domSanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64,${this.image}`);
+    }
+    return 'error_path';
+  }
+
   getImagePrev() {
     return `url("${this.image}")`;
   }
@@ -56,6 +64,7 @@ export class LoadImageComponent implements OnInit, OnChanges {
     this.imageChangedEvent = event;
     this.openCropperModal();
     this.preview();
+    this.currentImage = null;
   }
 
   openCropperModal() {
@@ -82,7 +91,7 @@ export class LoadImageComponent implements OnInit, OnChanges {
     reader.onload = (_event) => {
       this.image = reader.result;
     };
-  }  
+  }
 
   private openDialog(): Observable<any> {
     const dialogConfig = new MatDialogConfig();

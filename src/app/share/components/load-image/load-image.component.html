@@ -1,7 +1,8 @@
 <!-- Loaded image -->
 <div class="edh-avatar edh-avatar--outline">
 
-  <div class="edh-avatar__holder avatar-size" [ngStyle]="{'background-image': getImagePrev()}">
+  <img class="edh-avatar__holder avatar-size" [src]="photo" alt="" *ngIf="currentImage"/>
+  <div class="edh-avatar__holder avatar-size" [ngStyle]="{'background-image': getImagePrev()}" [hidden]="currentImage">
   </div>
 
   <label class="edh-avatar__upload">

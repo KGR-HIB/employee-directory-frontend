@@ -10,6 +10,7 @@ import { CityService, DepartmentService, EmployeeService, PositionService } from
 import { forkJoin, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ValidationUtils } from '../../../share/validation.util';
+import { ImageUtil } from '@share/util/image.util';
 
 @Component({
   selector: 'app-employee-personal-form',
@@ -54,6 +55,13 @@ export class EmployeePersonalFormComponent implements OnInit {
     this.createFormFields();
   }
 
+  get currentPhoto(): string | null {
+    if(this.employee) {
+      return this.employee.photo;
+    }
+    return null;
+  }
+
   private createFormFields() {
     this.formGroup = this.formBuilder.group({
       email: [null, Validators.compose([
@@ -84,7 +92,7 @@ export class EmployeePersonalFormComponent implements OnInit {
     this.fillExistingEmployeeData();
   }
 
-  private fillExistingEmployeeData(): void {
+  private async fillExistingEmployeeData(): Promise<void> {
     if (this.employee) {
       this.formGroup.controls.name.setValue(this.employee.name);
       this.formGroup.controls.lastName.setValue(this.employee.lastName);
@@ -96,6 +104,7 @@ export class EmployeePersonalFormComponent implements OnInit {
       this.formGroup.controls.department.setValue(this.employee.department.name);
       this.formGroup.controls.position.setValue(this.employee.position.name);
       this.formGroup.controls.chief.setValue(this.employee.immediateChief);
+      this.photo = await ImageUtil.base64ToFile(`data:image/png;base64,${this.employee.photo}`);
     }
   }
 
@@ -167,7 +176,7 @@ export class EmployeePersonalFormComponent implements OnInit {
       this.alert.error('La foto es requerida, por favor verifique.');
       return;
     }
-    
+
     const data: EmployeeManage = {
       id: this.employee?.id,
       name: controls.name.value,
