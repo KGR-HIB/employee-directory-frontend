@@ -3,14 +3,14 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { APP_ROUTES, VALIDATIONS } from '@constants';
 import { City, Department, Employee, EmployeeManage, Position, SimpleEmployee, Role } from '@models';
 import { CityService, DepartmentService, EmployeeService, PositionService, RoleService } from '@services';
+import { ImageUtil } from '@share/util/image.util';
+import { ToastrService } from 'ngx-toastr';
 import { forkJoin, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ValidationUtils } from '../../../share/validation.util';
-import { ImageUtil } from '@share/util/image.util';
 
 @Component({
   selector: 'app-employee-personal-form',
@@ -200,7 +200,7 @@ export class EmployeePersonalFormComponent implements OnInit {
       }
     }
     this.employeeService.createEmployeeWithPhoto(data, this.photo).subscribe(response => {
-      if (response?.data?.id && !this.employee) {
+      if (response?.data?.id) {
         if (!this.employee) {
           this.router.navigate([APP_ROUTES.EMPLOYEE, response.data.id]);
           return;
