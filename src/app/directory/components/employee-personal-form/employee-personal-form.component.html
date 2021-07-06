@@ -175,7 +175,7 @@
                   </mat-error>
                 </mat-form-field>
                 <div *ngIf="employee">
-                  <mat-slide-toggle (change)="setPasswordState($event)" [(ngModel)]="enablePassword"
+                  <mat-slide-toggle (change)="setPasswordState($event)" [(ngModel)]="enablePassword" color="blue"
                     [ngModelOptions]="{standalone: true}">
                     Cambiar contraseña
                   </mat-slide-toggle>
