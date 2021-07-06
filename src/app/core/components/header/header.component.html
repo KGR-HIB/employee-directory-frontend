@@ -1,6 +1,6 @@
 <header class="navbar navbar-expand-md navbar-light bg-light sticky-top">
   <nav class="container-xxl flex-wrap flex-md-nowrap">
-    <a href="/" class="navbar-brand">Directorio de Empleados</a>
+    <a href="/{{ APP_ROUTES.EMPLOYEES }}" class="navbar-brand">Directorio de Empleados</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toogle navigation">
       <span class="navbar-toggle-icon"></span>
@@ -8,13 +8,13 @@
     <div class="navbar-collapse collapse" id="navbarNav">
       <ul class="navbar-nav flex-row flex-wrap ms-md-auto align-items-center">
         <li class="nav-item col-3 col-md-auto">
-          <a routerLink="/employees/{{user?.id}}" class="nav-link p-2">Mi perfil</a>
+          <a routerLink="/{{ APP_ROUTES.EMPLOYEE }}/{{user?.id}}" routerLinkActive="active" class="nav-link p-2">Mi perfil</a>
         </li>
         <li class="nav-item col-3 col-md-auto">
-          <a routerLink="/employees" class="nav-link p-2">Directorio</a>
+          <a routerLink="/{{ APP_ROUTES.EMPLOYEES }}" routerLinkActive="active" class="nav-link p-2">Directorio</a>
         </li>
-        <li class="nav-item col-3 col-md-auto">
-          <a routerLink="/employee/create" class="nav-link p-2">Dar de alta</a>
+        <li class="nav-item col-3 col-md-auto" [hidden]="!isAdmin">
+          <a routerLink="/{{ APP_ROUTES.EMPLOYEE_CREATION }}" routerLinkActive="active" class="nav-link p-2">Dar de alta</a>
         </li>
       </ul>
       <hr class="d-md-none text-black-50" />
@@ -28,8 +28,12 @@
         </div>
       </a>
       <div class="dropdown-menu dropdown-menu-end">
-        <span style="font-size: smaller; font-weight: 500; margin: 10px;">{{ user?.email }}</span>
-        <div class="bg-white">
+        <div>
+          <span class="edh-user-name">
+            {{ user?.employe?.name }} {{ user?.employe?.lastName }}
+          </span>
+        </div>
+        <div class="bg-white edh-separator">
           <a href="" class="dropdown-item" (click)="signOut()">Cerrar sesión</a>
         </div>
       </div>

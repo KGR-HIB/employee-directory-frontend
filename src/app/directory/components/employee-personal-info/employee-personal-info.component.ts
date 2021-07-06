@@ -9,6 +9,7 @@ import { Employee } from '@models';
 export class EmployeePersonalInfoComponent {
 
   @Input() employee!: Employee;
+  @Input() editable!: boolean;
   @Output() edit!: EventEmitter<boolean>;
 
   constructor() {

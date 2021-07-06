@@ -3,7 +3,7 @@
     <img src="https://prium.github.io/falcon/v2.8.2/default/assets/img/team/3-thumb.png" alt="">
   </figure>
   <div class="hbr-card__content">
-    <a [routerLink]="['/employees', employee.id]">
+    <a routerLink="/{{ APP_ROUTES.EMPLOYEE }}/{{employee.id}}">
       <h3 class="m-0 lh-sm hbr-card__title">
         {{ employee.name }}
         <p class="m-0">{{ employee.lastName }}</p>
