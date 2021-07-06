@@ -27,10 +27,13 @@
           [src]="photo" appDefImg alt="" />
         </div>
       </a>
-      <div class="dropdown-menu dropdown-menu-end">
-        <div>
-          <span class="edh-user-name">
-            {{ user?.employe?.name }} {{ user?.employe?.lastName }}
+      <div class="dropdown-menu dropdown-menu-end" style="width: 250px !important;">
+        <div class="edh-name-container">
+          <span class="edh-user-name edh-title-color">
+            {{ user?.employe?.name }}
+          </span>
+          <span class="edh-user-name edh-normal-label">
+            {{ user?.email }}
           </span>
         </div>
         <div class="bg-white edh-separator">
