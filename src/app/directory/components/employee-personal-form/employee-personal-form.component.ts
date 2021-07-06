@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
 import { APP_ROUTES, VALIDATIONS } from '@constants';
 import { City, Department, Employee, EmployeeManage, Position, SimpleEmployee } from '@models';
@@ -21,7 +22,6 @@ export class EmployeePersonalFormComponent implements OnInit {
 
   formGroup!: FormGroup;
   isHiddenPassword = true;
-  loading!: boolean;
   filteredCities!: Observable<City[]>;
   cities!: City[];
   filteredPositions!: Observable<Position[]>;
@@ -30,6 +30,7 @@ export class EmployeePersonalFormComponent implements OnInit {
   departments!: Department[];
   chiefs!: SimpleEmployee[];
   markRequired!: boolean;
+  enablePassword = false;
 
   readonly APP_ROUTES = APP_ROUTES;
 
@@ -56,9 +57,7 @@ export class EmployeePersonalFormComponent implements OnInit {
         Validators.required,
         Validators.pattern(VALIDATIONS.EMAIL_REGEX),
       ])],
-      password: [null, Validators.compose([
-        Validators.required
-      ])],
+      password: [null, null],
       name: [null, Validators.compose([
         Validators.required
       ])],
@@ -88,12 +87,21 @@ export class EmployeePersonalFormComponent implements OnInit {
       this.formGroup.controls.lastName.setValue(this.employee.lastName);
       this.formGroup.controls.email.setValue(this.employee?.user?.email);
       this.formGroup.controls.email.disable();
+      this.formGroup.controls.password.disable();
       this.formGroup.controls.phone.setValue(this.employee.phone);
       this.formGroup.controls.city.setValue(this.employee.city.name);
       this.formGroup.controls.department.setValue(this.employee.department.name);
       this.formGroup.controls.position.setValue(this.employee.position.name);
       this.formGroup.controls.chief.setValue(this.employee.immediateChief);
     }
+  }
+
+  setPasswordState(slide: MatSlideToggleChange) {
+    if (slide.checked) {
+      this.formGroup.controls.password.enable();
+      return;
+    }
+    this.formGroup.controls.password.disable();
   }
 
   private autocCityListener() {
@@ -137,6 +145,13 @@ export class EmployeePersonalFormComponent implements OnInit {
 
   save() {
     // Validate form data
+    if ((!this.employee || this.enablePassword) && !this.formGroup.controls.password.value) {
+      this.formGroup.controls.password.setErrors({ required: true });
+      this.formGroup.controls.password.markAsTouched();
+    } else {
+      this.formGroup.controls.password.setErrors({ required: null });
+      this.formGroup.controls.password.updateValueAndValidity();
+    }
     const controls = this.formGroup.controls;
     if (this.formGroup.invalid) {
       Object.keys(controls).forEach(controlName =>
@@ -144,7 +159,6 @@ export class EmployeePersonalFormComponent implements OnInit {
       );
       return;
     }
-    this.loading = true;
     const data: EmployeeManage = {
       id: this.employee?.id,
       name: controls.name.value,

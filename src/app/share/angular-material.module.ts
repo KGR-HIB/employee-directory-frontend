@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 const MATERIAL_MODULES = [
@@ -24,7 +25,8 @@ const MATERIAL_MODULES = [
   MatDialogModule,
   MatCardModule,
   MatButtonToggleModule,
-  MatChipsModule
+  MatChipsModule,
+  MatSlideToggleModule
 ]
 
 @NgModule({
