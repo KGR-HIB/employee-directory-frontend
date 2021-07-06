@@ -17,6 +17,7 @@ export class EmployeeCategoryComponent implements OnInit {
   @Input() categoryName!: string;
   @Input() categoryList!: Category[]
   @Input() savedItems!: Category[] | undefined;
+  @Input() editable!: boolean;
   @Output() categoryChanges: EventEmitter<Category[]>;
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -86,7 +87,6 @@ export class EmployeeCategoryComponent implements OnInit {
   }
 
   private _filter(value: any): Category[] {
-    console.log(value);
     const filterValue = value.name ? value.name.toLowerCase() : value.toLowerCase();
     return this.categoryList.filter(item => item.name.toLowerCase().includes(filterValue));
   }
