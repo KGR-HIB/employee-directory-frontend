@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Employee } from '@models';
 
 @Component({
@@ -12,8 +13,15 @@ export class EmployeePersonalInfoComponent {
   @Input() editable!: boolean;
   @Output() edit!: EventEmitter<boolean>;
 
-  constructor() {
+  constructor(private domSanitizer: DomSanitizer) {
     this.edit = new EventEmitter();
+  }
+
+  get photo(): SafeResourceUrl | string {
+    if (this.employee.photo) {
+      return this.domSanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64,${this.employee.photo}`);
+    }
+    return 'error_path';
   }
 
   goToEdit(): void {

@@ -1,6 +1,6 @@
 <div class="hbr-card">
   <figure class="hbr-card__photo">
-    <img src="https://prium.github.io/falcon/v2.8.2/default/assets/img/team/3-thumb.png" alt="">
+    <img [src]="photo" appDefImg alt="">
   </figure>
   <div class="hbr-card__content">
     <a routerLink="/{{ APP_ROUTES.EMPLOYEE }}/{{employee.id}}">

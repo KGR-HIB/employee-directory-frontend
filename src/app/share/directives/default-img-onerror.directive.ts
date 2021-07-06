@@ -1,4 +1,5 @@
 import { Directive, Input } from '@angular/core';
+import { SafeResourceUrl } from '@angular/platform-browser';
 
 const PATH = '../../assets/media/user/user.png';
 
@@ -11,7 +12,7 @@ const PATH = '../../assets/media/user/user.png';
 })
 export class DefaultImgOnErrorDirective {
 
-  @Input() src!: string;
+  @Input() src!: SafeResourceUrl | string;
   @Input() appDefImg!: string;
 
   setDefaultImg() {
