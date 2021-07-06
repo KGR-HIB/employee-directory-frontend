@@ -65,6 +65,7 @@ export class LoadImageComponent implements OnInit, OnChanges {
           console.log(data);
           this.image = data.image;
           this.fileData = data.fileData;
+          this.loadedFileImage.emit(this.fileData);
         }
       );
     }

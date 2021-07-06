@@ -8,7 +8,7 @@
           <div class="col-lg-3 col-sm-12">
 
             <!-- TODO: add current user profile image [currentImage]  -->
-            <app-load-image></app-load-image>
+            <app-load-image (loadedFileImage)="loadedFileImageHandler($event)"></app-load-image>
 
           </div>
           <div class="col-lg-9 col-sm-12">

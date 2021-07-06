@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { API_URL, REST_CONTROLLER, EMPLOYEE_PATHS } from "@constants";
 import {
@@ -19,12 +19,13 @@ import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { HttpBaseService } from "./http-base.service";
 import { Pagination } from "@share/models/pagination.model";
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: "root",
 })
 export class EmployeeService extends HttpBaseService {
-  constructor(http: HttpClient) {
+  constructor(http: HttpClient, private auth: AuthService) {
     super(http, `${API_URL}${REST_CONTROLLER.EMPLOYEE}`);
   }
 
@@ -48,6 +49,25 @@ export class EmployeeService extends HttpBaseService {
    */
   createEmployee(employee: EmployeeManage): Observable<Response<any>> {
     return this.post(`/createOrUpdate`, employee);
+  }
+
+  /**
+   * Create employee with photo
+   *
+   * @author bcueva
+   * @param employee Employee
+   * @param photo File photo
+   * @returns Employee
+   */
+  createEmployeeWithPhoto(employee: EmployeeManage, photo: File): Observable<Response<Employee>> {
+    const formData = new FormData();
+    formData.append('file', photo);
+    formData.append('data', JSON.stringify(employee));
+    return this.post(`/createOrUpdate`, formData, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.auth.currentUserValue.accessToken}`
+      })
+    });
   }
 
   /**

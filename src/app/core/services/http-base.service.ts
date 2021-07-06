@@ -55,9 +55,10 @@ export abstract class HttpBaseService {
    * @param body Body
    * @returns
    */
-  post(path: string, body?: Object): Observable<any> {
+  post(path: string, body?: Object, httpOptions?: any): Observable<any> {
     this.log(`call POST url: ${path}`);
-    return this.http.post(`${this.baseUrl}${path}`, body, this.httpOptions)
+    const options = httpOptions || this.httpOptions;
+    return this.http.post(`${this.baseUrl}${path}`, body, options)
     .pipe(
       tap(() => this.log(`fetched url: ${path}`)),
       catchError(this.handleError('method POST'))

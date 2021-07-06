@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { APP_ROUTES, VALIDATIONS } from '@constants';
 import { City, Department, Employee, EmployeeManage, Position, SimpleEmployee } from '@models';
 import { CityService, DepartmentService, EmployeeService, PositionService } from '@services';
@@ -30,6 +31,7 @@ export class EmployeePersonalFormComponent implements OnInit {
   departments!: Department[];
   chiefs!: SimpleEmployee[];
   markRequired!: boolean;
+  photo!: File;
 
   readonly APP_ROUTES = APP_ROUTES;
 
@@ -40,7 +42,8 @@ export class EmployeePersonalFormComponent implements OnInit {
     private departmentService: DepartmentService,
     private formBuilder: FormBuilder,
     private location: Location,
-    private router: Router
+    private router: Router,
+    private alert: ToastrService
   ) {
     this.edited = new EventEmitter();
   }
@@ -143,6 +146,12 @@ export class EmployeePersonalFormComponent implements OnInit {
       );
       return;
     }
+
+    if (!this.photo) {
+      this.alert.error('La foto es requerida, por favor verifique.');
+      return;
+    }
+
     this.loading = true;
     const data: EmployeeManage = {
       id: this.employee?.id,
@@ -160,7 +169,7 @@ export class EmployeePersonalFormComponent implements OnInit {
         roleId: 1
       }
     }
-    this.employeeService.createEmployee(data).subscribe(response => {
+    this.employeeService.createEmployeeWithPhoto(data, this.photo).subscribe(response => {
       if (response?.data?.id && !this.employee) {
         if (!this.employee) {
           this.router.navigate([APP_ROUTES.EMPLOYEE, response.data.id]);
@@ -207,6 +216,10 @@ export class EmployeePersonalFormComponent implements OnInit {
         this.autocDepartmentListener();
       }
     });
+  }
+
+  loadedFileImageHandler(file: File) {
+    this.photo = file;
   }
 
 }
