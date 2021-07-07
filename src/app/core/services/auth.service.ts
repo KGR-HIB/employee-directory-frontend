@@ -23,7 +23,6 @@ export class AuthService {
   }
 
   updateCurrentUserValue(value: any) {
-    console.log('@@@@@@@updateCurrentUserValue ', value);
     localStorage.setItem('currentUser', JSON.stringify(value));
     this.currentUserSubject.next(value);
   }

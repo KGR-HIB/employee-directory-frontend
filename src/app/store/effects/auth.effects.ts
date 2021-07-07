@@ -1,7 +1,7 @@
 import { AuthAction } from '@actions';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { APP_ROUTES } from "@constants";
+import { APP_ROUTES } from '@constants';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from '@services';
 import { ToastrService } from 'ngx-toastr';
@@ -25,15 +25,7 @@ export class AuthEffects {
               currentUser: res
             });
           }),
-          catchError((err) => {
-            if (err !== 401 && err !== 403) {
-              this.alert.error(
-                `${action.payload.email}, vuelva a intentarlo. Disculpe las molestias`
-              );
-            }
-
-            return of(AuthAction.LoginFiled());
-          })
+          catchError(() => of(AuthAction.LoginFiled()))
         )
       )
     )
@@ -45,7 +37,7 @@ export class AuthEffects {
       exhaustMap((action) =>
         this.auth.logOut().pipe(
           map((logout) => AuthAction.LogOutSuccess()),
-          catchError((error) => of(AuthAction.LogOutFiled())
+          catchError(() => of(AuthAction.LogOutFiled())
           )
         )
       )

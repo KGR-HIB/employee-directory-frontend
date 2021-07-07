@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { APP_ROUTES } from '@constants';
 import { City, Response } from '@models';
 import { CityService } from '@services';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
@@ -15,10 +16,12 @@ export class CreateEmployeeComponent implements OnInit {
   constructor(
     private router: Router,
     private cityService: CityService,
-    private auth: AuthService
+    private auth: AuthService,
+    private alert: ToastrService
   ) {
     if (!this.auth.isAdmin()) {
-      this.auth.logOut().subscribe(() => this.router.navigateByUrl(APP_ROUTES.LOGIN).then());
+      this.router.navigateByUrl(APP_ROUTES.EMPLOYEES).then();
+      this.alert.error('No tiene acceso al recurso solicitado.');
     }
   }
 
