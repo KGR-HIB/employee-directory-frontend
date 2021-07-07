@@ -1,4 +1,8 @@
-<mat-progress-bar *ngIf="isLoading" mode="indeterminate" style="position: absolute; top: 0; z-index: 5000;">
-</mat-progress-bar>
+<div *ngIf="isLoading" class="lds-ellipsis">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
 
 <router-outlet></router-outlet>

@@ -19,6 +19,7 @@ import {
   SkillService
 } from "@services";
 import { forkJoin } from 'rxjs';
+import { UserEmployee } from '../../../core/models/user-employee.model';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
@@ -56,13 +57,22 @@ export class EmployeeComponent implements OnInit {
     this.getCatalogs();
   }
 
-  private fetchEmployeeSheet(id: number) {
+  private fetchEmployeeSheet(id: number, updateCurrentUserData = false) {
     this.employeeService
       .getEmployeeSheet(id)
       .subscribe((response: Response<Employee>) => {
         this.employee = response.data;
         this.isEditionMode = false;
         this.isEditable = this.userCanEdit();
+        if (updateCurrentUserData) {
+          const employeeData: UserEmployee = {
+            id: this.employee.id,
+            name: this.employee.name,
+            lastName: this.employee.lastName,
+            photo: this.employee.photo
+          };
+          this.auth.updateCurrentUserValue({...this.currentUser, employe: employeeData });
+        }
       });
   }
 
@@ -143,10 +153,10 @@ export class EmployeeComponent implements OnInit {
     this.isEditionMode = edit;
   }
 
-  managePrincipalInfoEdition(edited: boolean): void {
+  managePrincipalInfoEdited(edited: boolean): void {
     this.isEditionMode = edited;
     if (edited) {
-      this.fetchEmployeeSheet(this.employee.id);
+      this.fetchEmployeeSheet(this.employee.id, this.currentUser?.employe?.id === this.employee.id);
     }
   }
 }
