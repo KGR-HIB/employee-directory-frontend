@@ -86,7 +86,7 @@ export class EmployeePersonalFormComponent implements OnInit {
       phone: [null, Validators.compose([
         Validators.required,
         Validators.maxLength(20),
-        Validators.pattern(VALIDATIONS.NUMBER_REGEX)
+        Validators.pattern(VALIDATIONS.PHONE_NUMBER_REGEX)
       ])],
       department: [null, Validators.compose([
         Validators.required
