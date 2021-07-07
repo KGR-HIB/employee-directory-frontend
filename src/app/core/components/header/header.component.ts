@@ -3,10 +3,9 @@ import { Component } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { APP_ROUTES } from '@constants';
 import { Store } from "@ngrx/store";
-import { GlobalState } from "@store";
-import { User } from '../../models/user.model';
-import { AuthService } from '../../services/auth.service';
 import { ImageService } from '@share/services/image.service';
+import { GlobalState } from "@store";
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: "app-header",
@@ -15,28 +14,19 @@ import { ImageService } from '@share/services/image.service';
 })
 export class HeaderComponent {
 
-  isAdmin!: boolean;
-  user!: User | null;
-
   readonly APP_ROUTES = APP_ROUTES;
 
   constructor(
     private store: Store<GlobalState>,
-    private auth: AuthService,
+    public auth: AuthService,
     private imageService: ImageService
-  ) {
-    this.isAdmin = this.auth.isAdmin();
-    this.user = this.auth.currentUserValue;
-  }
+  ) { }
 
   get photo(): SafeResourceUrl | string {
-    if (this.user?.employe) {
-      return this.imageService.base64ToResourceUrl(this.user.employe.photo);
-    }
-    return 'no_photo';
+    return this.imageService.base64ToResourceUrl(this.auth.currentUserValue?.employe?.photo);
   }
 
   signOut = (): void => {
-    this.store.dispatch(AuthAction.LogOutBegin({ accessToken: this.user?.accessToken }));
+    this.store.dispatch(AuthAction.LogOutBegin({ accessToken: this.auth.currentUserValue?.accessToken }));
   }
 }

@@ -8,12 +8,12 @@
     <div class="navbar-collapse collapse" id="navbarNav">
       <ul class="navbar-nav flex-row flex-wrap ms-md-auto align-items-center">
         <li class="nav-item col-3 col-md-auto">
-          <a routerLink="/{{ APP_ROUTES.EMPLOYEE }}/{{user?.employe?.id}}" routerLinkActive="active" class="nav-link p-2">Mi ficha</a>
+          <a routerLink="/{{ APP_ROUTES.EMPLOYEE }}/{{auth.currentUserValue?.employe?.id}}" routerLinkActive="active" class="nav-link p-2">Mi ficha</a>
         </li>
         <li class="nav-item col-3 col-md-auto">
           <a routerLink="/{{ APP_ROUTES.EMPLOYEES }}" routerLinkActive="active" class="nav-link p-2">Directorio</a>
         </li>
-        <li class="nav-item col-3 col-md-auto" [hidden]="!isAdmin">
+        <li class="nav-item col-3 col-md-auto" [hidden]="!auth.isAdmin()">
           <a routerLink="/{{ APP_ROUTES.EMPLOYEE_CREATION }}" routerLinkActive="active" class="nav-link p-2">Dar de alta</a>
         </li>
       </ul>
@@ -30,10 +30,10 @@
       <div class="dropdown-menu dropdown-menu-end" style="width: 250px !important;">
         <div class="edh-name-container">
           <span class="edh-user-name edh-title-color">
-            {{ user?.employe?.name }}
+            {{ auth.currentUserValue?.employe?.name }}
           </span>
           <span class="edh-user-name edh-normal-label">
-            {{ user?.email }}
+            {{ auth.currentUserValue?.email }}
           </span>
         </div>
         <div class="bg-white edh-separator">

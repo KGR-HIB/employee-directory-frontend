@@ -22,6 +22,12 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
+  updateCurrentUserValue(value: any) {
+    console.log('@@@@@@@updateCurrentUserValue ', value);
+    localStorage.setItem('currentUser', JSON.stringify(value));
+    this.currentUserSubject.next(value);
+  }
+
   isAdmin(): boolean {
     const currentUser = this.currentUserValue;
     if (currentUser && currentUser.role?.code === CONSTANTS.ROLES.ADMIN) {
@@ -33,7 +39,7 @@ export class AuthService {
   login(payload: Authentication): Observable<User> {
     return this.http.post<Response<User>>(API_URLS.LOGIN, payload).pipe(
       map((response) => {
-        this.currentUserSubject.next(response.data);
+        this.updateCurrentUserValue(response.data);
         return response.data;
       })
     );
@@ -42,7 +48,7 @@ export class AuthService {
   logOut(): Observable<Response<any>> {
     return this.http.post<Response<any>>(`${API_URLS.LOGOUT}`, {}).pipe(
       map((response) => {
-        this.currentUserSubject.next(null);
+        this.updateCurrentUserValue(null);
         return response;
       })
     );
