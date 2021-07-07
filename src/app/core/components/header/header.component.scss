@@ -1,0 +1,15 @@
+.edh-name-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.edh-user-name {
+  font-size: smaller;
+  font-weight: 500;
+  padding: .25rem 1rem;
+}
+
+.edh-separator {
+  border-top: 1px solid #dfe0e8;
+}

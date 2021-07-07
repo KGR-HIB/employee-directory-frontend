@@ -1,0 +1,62 @@
+// Toast
+@import "~ngx-toastr/toastr";
+
+// App colors
+:root {
+  // spinner
+  --loading: #54BDEC;
+  // sidebar
+  --background0: #F7F7F7;
+  --background1-body: #ECF0F1;
+  --message-errors: #ff5564;
+  --border-element: #d7dbde;
+}
+
+// Generals elements styles
+body {
+  //background-color: var(--background0);
+
+  &::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
+}
+
+.div-mat-error {
+  height: 27px;
+}
+
+.msg-invalid {
+  color: var(--message-errors) !important;
+}
+
+.div-visibility-visible {
+  visibility: visible;
+  font-size: small;
+  color: var(--message-errors);
+}
+
+.div-visibility-hidden {
+  visibility: hidden;
+  color: var(--border-element);
+}
+
+button {
+  transition: all 1.2s ease-out !important;
+}
+
+input {
+  padding: 0 15px 0 15px;
+  transition: all 0.5s ease-out;
+}
+
+select {
+  padding: 0 15px 0 15px;
+  transition: all 0.5s ease-out;
+}
+
+textarea {
+  padding: 0 15px 0 15px;
+  //resize: none;
+  transition: all 0.5s ease-out;
+}

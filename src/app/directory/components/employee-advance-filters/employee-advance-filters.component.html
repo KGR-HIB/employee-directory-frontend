@@ -1,0 +1,74 @@
+<mat-card>
+  <mat-card-content>
+    <button
+      mat-icon-button
+      class="edh-close-button"
+      aria-label="close"
+      (click)="closeAdvanceFilters()"
+    >
+      <mat-icon>cancel</mat-icon>
+    </button>
+    <div class="edh-filters__content">
+      <app-employee-filter-category
+        [categoryName]="'Cargo'"
+        [categoryList]="positions"
+        [clearSelection]="clearSelections"
+        (categoryChanges)="filterByPosition($event)"
+      >
+      </app-employee-filter-category>
+
+      <app-employee-filter-category
+        [categoryName]="'Área'"
+        [categoryList]="departments"
+        [clearSelection]="clearSelections"
+        (categoryChanges)="filterByDepartment($event)"
+      >
+      </app-employee-filter-category>
+
+      <app-employee-filter-category
+        [categoryName]="'Proyecto'"
+        [categoryList]="projects"
+        [clearSelection]="clearSelections"
+        (categoryChanges)="filterByProject($event)"
+      >
+      </app-employee-filter-category>
+
+      <app-employee-filter-category
+        [categoryName]="'Ciudad'"
+        [categoryList]="cities"
+        [clearSelection]="clearSelections"
+        (categoryChanges)="filterByCity($event)"
+      >
+      </app-employee-filter-category>
+
+      <app-employee-filter-category
+        [categoryName]="'Tecnología'"
+        [categoryList]="skills"
+        [clearSelection]="clearSelections"
+        (categoryChanges)="filterBySkill($event)"
+      >
+      </app-employee-filter-category>
+
+      <app-employee-filter-category
+        [categoryName]="'Certificación'"
+        [categoryList]="certifications"
+        [clearSelection]="clearSelections"
+        (categoryChanges)="filterByCertification($event)"
+      >
+      </app-employee-filter-category>
+    </div>
+    <div class="edh-button-container mt-2">
+      <button mat-stroked-button (click)="clearAdvanceFilters()">
+        Limpiar filtros
+      </button>
+      <button
+        mat-raised-button
+        class="ms-1"
+        color="orange"
+        (click)="clickSearchHandler()"
+      >
+        Buscar
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,76 @@
+<div class="container mt-3">
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div class="edh-card-actions" *ngIf="editable">
+        <button mat-mini-fab color="orange" aria-label="Edit profile" (click)="goToEdit()">
+          <mat-icon>mode_edit</mat-icon>
+        </button>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row pb-3">
+        <div class="col-lg-3 col-sm-12 edh-profile-img">
+
+          <img [src]="photo" appDefImg class="edh-profile-img-border edh-profile__image" alt="Profile image">
+
+        </div>
+        <div class="col-lg-9 col-sm-12">
+
+          <div class="row mt-3">
+
+            <div class="col-md-6 col-sm-12">
+              <h2 class="edh-title-color" style="margin-bottom: 0">{{ employee.name }} {{ employee.lastName }}</h2>
+              <div *ngIf="isEmployeeSystemAdmin" class="mb-2">
+                <span class="badge bg-primary">Administrador del sistema</span>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 pb-3">
+              <div class="edh-icon-label">
+                <i aria-hidden="true" class="material-icons-outlined edh-normal-label me-2">mail</i>
+                <span class="edh-normal-label">{{ employee.user.email }}</span>
+              </div>
+              <div class="edh-icon-label">
+                <i aria-hidden="true" class="material-icons-outlined edh-normal-label me-2">call</i>
+                <span class="edh-normal-label">{{ employee.phone }}</span>
+              </div>
+              <div class="edh-icon-label">
+                <i aria-hidden="true" class="material-icons-outlined edh-normal-label me-2">location_on</i>
+                <span class="edh-normal-label">{{ employee.city.name }}</span>
+              </div>
+
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col-md-3 col-sm-12 edh-title-desc pb-3">
+              <span class="edh-title-label">Cargo</span>
+              <span class="edh-normal-label">{{ employee.position?.name }}</span>
+            </div>
+
+            <div class="col-md-3 col-sm-12 edh-title-desc pb-3">
+              <span class="edh-title-label">Área</span>
+              <span class="edh-normal-label">{{ employee.department?.name }}</span>
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col-md-3 col-sm-12 edh-title-desc pb-3">
+              <span class="edh-title-label">Responsable</span>
+              <span class="edh-normal-label">
+                {{ employee?.immediateChief?.name }} {{ employee?.immediateChief?.lastName }}
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>

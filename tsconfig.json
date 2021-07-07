@@ -1,0 +1,41 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@services": ["src/app/core/services/index.ts"],
+      "@models": ["src/app/core/models/index.ts"],
+      "@actions": ["src/app/store/actions/index.ts"],
+      "@effects": ["src/app/store/effects/index.ts"],
+      "@store": ["src/app/store/app.states.ts"],
+      "@interceptors": ["src/app/core/interceptors/index.ts"],
+      "@constants": ["src/app/core/constants/index.ts"],
+      "@share/*": ["src/app/share/*"]
+    },
+    "outDir": "./dist",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2017",
+    "module": "es2020",
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true,
+    "strictPropertyInitialization": false
+  }
+}

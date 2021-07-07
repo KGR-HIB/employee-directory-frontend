@@ -1,0 +1,40 @@
+<div>
+  <div class="row mb-1">
+    <div class="col-12">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control shadow-none pe-5"
+          [(ngModel)]="value"
+          (ngModelChange)="onChange($event)"
+          placeholder="Buscar por nombres, apellidos o correo electrónico"
+          (keyup)="keyUpInputHandler($event)"
+        />
+        <mat-icon
+          *ngIf="hasValue"
+          class="hbr-search__clear"
+          (click)="clickClearHandler()"
+          >clear</mat-icon
+        >
+        <button
+          mat-flat-button
+          color="orange"
+          type="button"
+          (click)="clickSearchHandler()"
+        >
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="offset-8 col-4 text-end">
+      <a
+        class="link-primary"
+        [routerLink]=""
+        (click)="clickAdvancedFilersHandler()"
+        >Filtros adicionales
+      </a>
+    </div>
+  </div>
+</div>

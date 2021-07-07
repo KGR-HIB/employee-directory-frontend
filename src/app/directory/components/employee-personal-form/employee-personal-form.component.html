@@ -1,0 +1,217 @@
+<div class="container mt-3">
+
+  <form [formGroup]="formGroup" autocomplete="off">
+
+    <mat-card class="example-card">
+      <mat-card-content>
+        <div class="row m-3">
+          <div class="col-lg-3 col-sm-12">
+
+            <app-load-image (loadedFileImage)="loadedFileImageHandler($event)" [currentImage]="currentPhoto">
+            </app-load-image>
+
+          </div>
+          <div class="col-lg-9 col-sm-12">
+
+            <div class="row mt-3">
+              <div class="col-12">
+                <h2 class="edh-title-color">Información Personal</h2>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline" class="edh-custom-mat-input">
+                  <mat-label>Nombres</mat-label>
+                  <input matInput formControlName="name" placeholder="Ingrese los Nombres">
+                  <mat-error *ngIf="isControlHasError('name','required')">
+                    <strong>Campo requerido</strong>
+                  </mat-error>
+                  <mat-error *ngIf="isControlHasError('name','maxlength')">
+                    <strong>Debe ser máximo de 60 caracteres</strong>
+                  </mat-error>
+                  <mat-error *ngIf="isControlHasError('name','pattern')">
+                    <strong>Debe contener solo letras</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline" class="edh-custom-mat-input">
+                  <mat-label>Apellidos</mat-label>
+                  <input matInput formControlName="lastName" placeholder="Ingrese los Apellidos">
+                  <mat-error *ngIf="isControlHasError('lastName','required')">
+                    <strong>Campo requerido</strong>
+                  </mat-error>
+                  <mat-error *ngIf="isControlHasError('lastName','maxlength')">
+                    <strong>Debe ser máximo de 60 caracteres</strong>
+                  </mat-error>
+                  <mat-error *ngIf="isControlHasError('lastName','pattern')">
+                    <strong>Debe contener solo letras</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline" class="edh-custom-mat-input">
+                  <mat-label>Correo</mat-label>
+                  <input matInput formControlName="email" placeholder="Ingrese el Correo">
+                  <mat-icon matSuffix>email</mat-icon>
+                  <mat-error *ngIf="isControlHasError('email','required')">
+                    <strong>Campo requerido</strong>
+                  </mat-error>
+                  <mat-error *ngIf="isControlHasError('email','pattern')">
+                    <strong>Correo inválido</strong>
+                  </mat-error>
+                  <mat-error *ngIf="isControlHasError('email','maxlength')">
+                    <strong>Debe ser máximo de 60 caracteres</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline" class="edh-custom-mat-input">
+                  <mat-label>Teléfono</mat-label>
+                  <input matInput formControlName="phone" placeholder="Ingrese el Teléfono" appPhoneChars>
+                  <mat-icon matSuffix>call</mat-icon>
+                  <mat-error *ngIf="isControlHasError('phone','required')">
+                    <strong>Campo requerido</strong>
+                  </mat-error>
+                  <mat-error *ngIf="isControlHasError('phone','maxlength')">
+                    <strong>Debe ser máximo de 20 dígitos</strong>
+                  </mat-error>
+                  <mat-error *ngIf="isControlHasError('phone','pattern')">
+                    <strong>Número de teléfono inválido</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline" class="edh-custom-mat-input">
+                  <mat-label>Ciudad</mat-label>
+                  <input type="text" placeholder="Ingrese la Ciudad" aria-label="City" matInput formControlName="city"
+                    [matAutocomplete]="autoCity">
+                  <mat-icon matSuffix>location_on</mat-icon>
+                  <mat-autocomplete #autoCity="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredCities | async" [value]="option.name">
+                      {{ option.name }}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="isControlHasError('city','required')">
+                    <strong>Campo requerido</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 col-sm-12">
+
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-12">
+                <h2 class="edh-title-color">Información Laboral</h2>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline" class="edh-custom-mat-input">
+                  <mat-label>Cargo</mat-label>
+                  <input type="text" placeholder="Ingrese el Cargo" aria-label="Position" matInput
+                    formControlName="position" [matAutocomplete]="autoPosition">
+                  <mat-autocomplete #autoPosition="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredPositions | async" [value]="option.name">
+                      {{ option.name }}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="isControlHasError('position','required')">
+                    <strong>Campo requerido</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline" class="edh-custom-mat-input">
+                  <mat-label>Área</mat-label>
+                  <input type="text" placeholder="Ingrese el Área" aria-label="Department" matInput
+                    formControlName="department" [matAutocomplete]="autoDepts">
+                  <mat-autocomplete #autoDepts="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredDepartments | async" [value]="option.name">
+                      {{ option.name }}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="isControlHasError('department','required')">
+                    <strong>Campo requerido</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <app-dropdown-chief [initialValue]="employee?.immediateChief" (selectedData)="setSelectedChief($event)">
+                </app-dropdown-chief>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-12">
+                <h2 class="edh-title-color">Información del usuario</h2>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline" class="edh-custom-mat-input">
+                  <mat-label>Contraseña</mat-label>
+                  <input [type]="isHiddenPassword ? 'password' : 'text'" autocomplete="off" value=""
+                    formControlName="password" matInput placeholder="Ingrese la Contraseña" />
+                  <mat-icon (click)="isHiddenPassword = !isHiddenPassword" class="edh-selection-cursor" matSuffix>
+                    {{ isHiddenPassword ? 'visibility' : 'visibility_off' }}
+                  </mat-icon>
+                  <mat-error *ngIf="isControlHasError('password','required')">
+                    <strong>Campo requerido</strong>
+                  </mat-error>
+                </mat-form-field>
+                <div *ngIf="employee">
+                  <mat-slide-toggle (change)="setPasswordState($event)" [(ngModel)]="enablePassword" color="blue"
+                    [ngModelOptions]="{standalone: true}">
+                    Cambiar contraseña
+                  </mat-slide-toggle>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-sm-12" *ngIf="!employee || isCurrentUserAdmin">
+                <mat-form-field appearance="outline" class="edh-custom-mat-input">
+                  <mat-label>Rol</mat-label>
+                  <mat-select formControlName="role">
+                    <mat-option *ngFor="let option of roles" [value]="option.id">
+                      {{ option.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <div class="row m-3">
+          <div class="col-12 text-end">
+            <button type="reset" mat-stroked-button class="me-2" (click)="cancel()">
+              Cancelar
+            </button>
+
+            <button mat-flat-button color="orange" (click)="save()">
+              Guardar
+            </button>
+          </div>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+
+  </form>
+
+</div>

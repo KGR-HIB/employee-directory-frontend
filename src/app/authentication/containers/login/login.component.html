@@ -1,0 +1,59 @@
+<div class="container-fluid">
+  <div class="row no-gutter">
+    <!-- The image half -->
+    <div class="col-md-6 d-none d-md-flex bg-image"></div>
+
+
+    <!-- The content half -->
+    <div class="col-md-6 bg-light">
+      <div class="login d-flex align-items-center py-5">
+
+        <!-- Demo content-->
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-10 col-xl-7 mx-auto">
+              <h3 class="display-4">Directorio de empleados de <strong>hiberus</strong></h3>
+              <p class="text-muted mb-4">
+                Ingresa correo y contraseña para continuar
+              </p>
+              <form [formGroup]="formGroup" autocomplete="off">
+                <div class="form-group">
+                  <mat-form-field appearance="outline" class="edh-custom-mat-input">
+                    <mat-label>Correo</mat-label>
+                    <input matInput formControlName="mail" placeholder="Ingrese el Correo">
+                    <mat-icon matSuffix>mail</mat-icon>
+                    <mat-error *ngIf="isControlHasError('mail','required')">
+                      <strong>Campo requerido</strong>
+                    </mat-error>
+                    <mat-error *ngIf="isControlHasError('mail','pattern')">
+                      <strong>Correo inválido</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="form-group">
+                  <mat-form-field appearance="outline" class="edh-custom-mat-input">
+                    <mat-label>Contraseña</mat-label>
+                    <input [type]="isHiddenPassword ? 'password' : 'text'" autocomplete="off" formControlName="password"
+                      matInput placeholder="Ingrese la Contraseña" />
+                    <mat-icon (click)="isHiddenPassword = !isHiddenPassword" class="edh-selection-cursor" matSuffix>
+                      {{ isHiddenPassword ? 'visibility' : 'visibility_off' }}
+                    </mat-icon>
+                    <mat-error *ngIf="isControlHasError('password','required')">
+                      <strong>Campo requerido</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <button mat-flat-button color="orange" class="edh-custom-mat-input" (click)="submit()">
+                  Ingresar
+                </button>
+              </form>
+            </div>
+          </div>
+        </div><!-- End -->
+
+      </div>
+    </div><!-- End -->
+
+  </div>
+</div>

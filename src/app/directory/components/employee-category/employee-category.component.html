@@ -1,0 +1,100 @@
+<div class="container mt-3">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div style="display: flex; width: 100%">
+        <div>
+          <h2 class="edh-title-color">{{ categoryName }}</h2>
+        </div>
+        <div class="edh-card-actions" *ngIf="!isEditionMode && editable">
+          <button
+            mat-mini-fab
+            color="orange"
+            (click)="isEditionMode = !isEditionMode"
+            aria-label="Edit items"
+          >
+            <mat-icon>mode_edit</mat-icon>
+          </button>
+        </div>
+        <div class="edh-card-actions" *ngIf="isEditionMode">
+          <button
+            mat-mini-fab
+            color="blue"
+            class="me-2"
+            (click)="saveItems()"
+            aria-label="Save item"
+          >
+            <mat-icon>save</mat-icon>
+          </button>
+
+          <button
+            mat-mini-fab
+            color="red"
+            (click)="restoreItems()"
+            aria-label="Cancel changes"
+          >
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row ms-4">
+        <div class="col-12" *ngIf="hasSaveItems || isEditionMode">
+          <mat-chip-list aria-label="Color selection" *ngIf="!isEditionMode">
+            <mat-chip *ngFor="let item of savedItems" selected color="lightblue">
+              {{ item.name }}
+            </mat-chip>
+          </mat-chip-list>
+
+          <mat-form-field
+            class="edh-custom-mat-input"
+            appearance="fill"
+            *ngIf="isEditionMode"
+          >
+            <mat-label>Editar</mat-label>
+            <mat-chip-list #chipList aria-label="item selection">
+              <mat-chip
+                *ngFor="let item of savedItems"
+                [selectable]="true"
+                [removable]="true"
+                (removed)="remove(item)"
+              >
+                {{ item.name }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+              <input
+                placeholder="Escribe para agregar nuevo..."
+                #itemInput
+                [formControl]="itemCtrl"
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="add($event)"
+              />
+            </mat-chip-list>
+            <mat-autocomplete
+              #auto="matAutocomplete"
+              (optionSelected)="selected($event)"
+            >
+              <mat-option
+                *ngFor="let item of filteredItems | async"
+                [value]="item"
+              >
+                {{ item.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div class="col-12" *ngIf="!hasSaveItems && !isEditionMode">
+          <a *ngIf="editable"
+            class="link-primary"
+            [routerLink]=""
+            (click)="isEditionMode = !isEditionMode"
+            >Agregar {{ categoryName }}
+          </a>
+          <span *ngIf="!editable">No tiene asignación de {{ categoryName }}</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

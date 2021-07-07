@@ -1,0 +1,45 @@
+<header class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+  <nav class="container-xxl flex-wrap flex-md-nowrap">
+    <a href="/{{ APP_ROUTES.EMPLOYEES }}" class="navbar-brand">Directorio de Empleados</a>
+    <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toogle navigation">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div class="navbar-collapse collapse" id="navbarNav">
+      <ul class="navbar-nav flex-row flex-wrap ms-md-auto align-items-center">
+        <li class="nav-item col-3 col-md-auto">
+          <a routerLink="/{{ APP_ROUTES.EMPLOYEE }}/{{auth.currentUserValue?.employe?.id}}" routerLinkActive="active" class="nav-link p-2">Mi ficha</a>
+        </li>
+        <li class="nav-item col-3 col-md-auto">
+          <a routerLink="/{{ APP_ROUTES.EMPLOYEES }}" routerLinkActive="active" class="nav-link p-2">Directorio</a>
+        </li>
+        <li class="nav-item col-3 col-md-auto" [hidden]="!auth.isAdmin()">
+          <a routerLink="/{{ APP_ROUTES.EMPLOYEE_CREATION }}" routerLinkActive="active" class="nav-link p-2">Dar de alta</a>
+        </li>
+      </ul>
+      <hr class="d-md-none text-black-50" />
+      <a class="nav-link my-2 d-md-none" routerLink="/">Cerrar sesión</a>
+    </div>
+    <div class="dropdown d-none d-md-block">
+      <a id="navbarDropdownUser" href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
+        <div style="position: relative; display: inline-block; height: 2rem">
+          <img style="object-fit: cover; height: 100%" class="rounded-circle"
+          [src]="photo" appDefImg alt="" />
+        </div>
+      </a>
+      <div class="dropdown-menu dropdown-menu-end" style="width: 250px !important;">
+        <div class="edh-name-container">
+          <span class="edh-user-name edh-title-color">
+            {{ auth.currentUserValue?.employe?.name }}
+          </span>
+          <span class="edh-user-name edh-normal-label">
+            {{ auth.currentUserValue?.email }}
+          </span>
+        </div>
+        <div class="bg-white edh-separator">
+          <a href="" class="dropdown-item" (click)="signOut()">Cerrar sesión</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

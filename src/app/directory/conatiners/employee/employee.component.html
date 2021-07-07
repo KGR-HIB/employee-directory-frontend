@@ -1,0 +1,45 @@
+<app-layout [title]="'Ficha'">
+  <div *ngIf="employee">
+    <app-employee-personal-info
+      *ngIf="!isEditionMode"
+      [employee]="employee"
+      [editable]="isEditable"
+      (edit)="goToPrincipalInfoEdition($event)"
+    >
+    </app-employee-personal-info>
+    <app-employee-personal-form
+      *ngIf="isEditionMode"
+      [employee]="employee"
+      [isCurrentUserAdmin]="isCurrentUserAdmin"
+      (edited)="managePrincipalInfoEdited($event)"
+    >
+    </app-employee-personal-form>
+
+    <app-employee-category
+      [categoryName]="'Proyectos'"
+      [categoryList]="projects"
+      [savedItems]="employee?.projects"
+      [editable]="isEditable"
+      (categoryChanges)="updateProjects($event)"
+    >
+    </app-employee-category>
+
+    <app-employee-category
+      [categoryName]="'Certificaciones'"
+      [categoryList]="certifications"
+      [savedItems]="employee?.certifications"
+      [editable]="isEditable"
+      (categoryChanges)="updateCertifications($event)"
+    >
+    </app-employee-category>
+
+    <app-employee-category
+      [categoryName]="'Tecnologías'"
+      [categoryList]="skills"
+      [savedItems]="employee?.skills"
+      [editable]="isEditable"
+      (categoryChanges)="updateSkills($event)"
+    >
+    </app-employee-category>
+  </div>
+</app-layout>
